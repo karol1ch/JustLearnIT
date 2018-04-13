@@ -7,6 +7,9 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <springframework.version>5.0.4.RELEASE</springframework.version>
+
+        <springsecurity.version>5.0.3.RELEASE</springsecurity.version>
     </properties>
 
     <groupId>brainstormers</groupId>
@@ -66,13 +69,18 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <version>${springsecurity.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${springsecurity.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
@@ -117,8 +125,25 @@
             <version>1.2.5</version>
         </dependency>
 
-
-
     </dependencies>
+
+    <build>
+        <finalName>JustJoinIT</finalName>
+
+        <pluginManagement>
+
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.0</version>
+
+
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
 
 </project>
