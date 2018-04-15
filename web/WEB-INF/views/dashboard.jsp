@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <html>
   <head>
     <title>Title</title>
@@ -29,6 +33,10 @@
      </tr>
     </c:forEach>
   </table>
+
+   <form:form action="${pageContext.request.contextPath}/logout" method="post">
+       <input type="submit" value="Logout" class="btn btn-primary"/>
+   </form:form>
 
   </body>
 </html>
