@@ -1,42 +1,80 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<html>
-  <head>
-    <title>Title</title>
-  </head>
-  <body>
-  <h1>Dashboard</h1>
-    <h2>Welcome ${username}, your password is ${password}</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard | JustLearnIT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-  <table>
-      <tr>
-          <td>id</td>
-          <td>FirstName</td>
-          <td>LastName</td>
-          <td>Date of birth</td>
-          <td>Username</td>
-          <td>Password</td>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">JustLearnIT</a>
 
-      </tr>
-    <c:forEach var="person" items="${list_of_persons}">
-     <tr>
-         <td>${person.id}</td>
-         <td>${person.firstName}</td>
-         <td>${person.lastName}</td>
-         <td>${person.dateOfBirth}</td>
-         <td>${person.username}</td>
-         <td>${person.password}</td>
-     </tr>
-    </c:forEach>
-  </table>
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Practice</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Leaderboard</a>
+        </li>
 
-   <form:form action="${pageContext.request.contextPath}/logout" method="post">
-       <input type="submit" value="Logout" class="btn btn-primary"/>
-   </form:form>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                Categories
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Easy</a>
+                <a class="dropdown-item" href="#">Medium</a>
+                <a class="dropdown-item" href="#">Hard</a>
+            </div>
+        </li>
 
-  </body>
+
+    </ul>
+
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+        </li>
+        <li class="nav-item">
+            <form:form action="${pageContext.request.contextPath}/logout" method="post">
+                <input type="submit" value="Logout" class="btn btn-primary"/>
+            </form:form>
+
+        </li>
+    </ul>
+
+</nav>
+<br>
+
+<div class="container">
+    <form:form modelAttribute="username">
+        <h3 class="title">Hi ${username}! How are you?</h3>
+    </form:form>
+
+</div>
+
+</br></br>
+
+<div class="card">
+    <div class="card-header">
+        Featured
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+
+
+</body>
 </html>

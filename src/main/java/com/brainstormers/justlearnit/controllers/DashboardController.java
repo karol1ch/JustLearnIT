@@ -19,10 +19,10 @@ public class DashboardController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String showDashboardPageWithPersons(ModelMap model){
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
 
-        ArrayList<PersonEntity> list = dashboardService.getListOfPersons();
-
-        model.addAttribute("list_of_persons", list);
+        model.put("username", name);
         return "dashboard";
     }
 }
