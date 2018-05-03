@@ -62,6 +62,10 @@
 
 <div class="container">
     <div class="row my-2">
+        <div class="col-lg-4 order-lg-1 text-center">
+            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <h5 class="mt-2">Admin - czerwony / Moderator - zielony  / User - niebieski</h5>
+        </div>
         <div class="col-lg-8 order-lg-2 ">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -82,7 +86,6 @@
             </ul>
             <div class="tab-content py-4">
 
-                <%-- Dane uzytkownika --%>
 
                 <div class="tab-pane active" id="profile">
                     <h5 class="mb-3">User Profile</h5>
@@ -127,10 +130,8 @@
 
                         </div>
                     </div>
-                    <!--/row-->
                 </div>
 
-                <%-- Zmiana danych --%>
 
                 <div class="tab-pane" id="edit">
                     <form role="form">
@@ -182,7 +183,6 @@
                     </form>
                 </div>
 
-                <%-- Zmiana loginu --%>
 
                 <div class="tab-pane" id="changeLogin">
                     <form role="form">
@@ -202,7 +202,6 @@
                     </form>
                 </div>
 
-                <%-- Zmiana hasla --%>
 
                 <div class="tab-pane" id="changePassword">
 
@@ -233,12 +232,9 @@
                     </form>
                 </div>
 
-                <%-- Zmiana avatara --%>
 
                 <div class="tab-pane" id="changeAvatar">
                     <div class="col-lg-6 order-lg-1 text-center">
-                        <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-                        <h6 class="mt-2">Upload a different photo</h6>
                         <label class="custom-file">
                             <input type="file" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Choose </label>
@@ -247,10 +243,6 @@
 
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 order-lg-1 text-center">
-            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-            <h5 class="mt-2">Admin - czerwony / Moderator - zielony  / User - niebieski</h5>
         </div>
     </div>
 </div>
