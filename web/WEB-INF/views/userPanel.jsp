@@ -12,53 +12,7 @@
 </head>
 
 
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#">JustLearnIT</a>
-
-    <!-- Links -->
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Practice</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Leaderboard</a>
-        </li>
-
-        <!-- Dropdown -->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Categories
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Easy</a>
-                <a class="dropdown-item" href="#">Medium</a>
-                <a class="dropdown-item" href="#">Hard</a>
-            </div>
-        </li>
-
-
-    </ul>
-
-    <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-        </li>
-        <li class="nav-item">
-            <form:form action="${pageContext.request.contextPath}/logout" method="post">
-                <input type="submit" value="Logout" class="btn btn-primary"/>
-            </form:form>
-
-        </li>
-    </ul>
-
-</nav>
-<br>
-<br>
-<br>
-
-
-
+<jsp:include page="./parts/userMenu.jsp"/>
 
 <div class="container">
     <div class="row my-2">
