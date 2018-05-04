@@ -40,7 +40,7 @@ public class Problem {
     }
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "category_name")
     public Category getCategory() {
         return category;
     }

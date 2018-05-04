@@ -6,20 +6,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "category")
 public class Category {
-    private int id;
+
     private String name;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -34,23 +24,19 @@ public class Category {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Category category = (Category) o;
-        return id == category.id &&
-                Objects.equals(name, category.name);
+        return Objects.equals(name, category.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
-
-
 }
