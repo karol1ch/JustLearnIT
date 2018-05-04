@@ -52,21 +52,20 @@ public class AdminController {
     }
 
 
-
-
     @RequestMapping("/addProblem")
     public String addProblem(Model model){
         Problem problem = new Problem();
         List<Category> categories = categoryService.getCategoriesList();
 
-        List<Integer> categoriesId = new ArrayList<>();
+
+        List<String> categoriesNames = new ArrayList<>();
         for (Category c: categories){
-            categoriesId.add(c.getId());
+            categoriesNames.add(c.getName());
         }
 
-
         model.addAttribute("problem", problem);
-        model.addAttribute("categories", categoriesId);
+        model.addAttribute("categories", categoriesNames);
+
 
         return "addProblemForm";
     }
@@ -79,11 +78,7 @@ public class AdminController {
         User user = userService.getUserById(name);
         problem.setUser(user);
 
-        Category category = categoryService.getCategoryById(problem.getCategory().getId());
-        problem.setCategory(category);
-
         problemService.saveOrUpdate(problem);
-        System.out.println("PROBLEM TO SAVE: " + problem);
         return "redirect:/admin/problems";
     }
 

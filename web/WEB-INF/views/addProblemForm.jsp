@@ -29,7 +29,7 @@
     <br/>
 
     Category:
-    <form:select path="category.id">
+    <form:select path="category.name">
         <form:options items="${categories}"/>
     </form:select>
 
