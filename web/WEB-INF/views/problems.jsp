@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 
 <div class="form-row text-center">
     <div class="col-12">
-        <a href="#" class="btn btn-info" role="button">Add problem</a>
+        <a href="${pageContext.request.contextPath}/admin/addProblem" class="btn btn-info" role="button">Add problem</a>
     </div>
 </div>
 
@@ -28,38 +29,31 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-        <th scope="col">Problem title</th>
-        <th scope="col">Problem short description</th>
+        <th scope="col">Problem Name</th>
+        <th scope="col">Author</th>
         <th scope="col">Category</th>
-        <th scope="col">Points</th>
+        <th scope="col">Content</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
+
+    <form:form modelAttribute="problems">
+
+        <c:forEach items="${problems}" var="problem">
+            <c:url var="deleteLink" value="/admin/deleteProblem">
+                <c:param name="problemId" value="${problem.id}"/>
+            </c:url>
     <tr>
-        <th scope="row">1</th>
-        <td>Welcome to Java!</td>
-        <td>How to write "Hello World!" in Java</td>
-        <td>Java</td>
-        <td>5</td>
-        <td><a href="#">Delete</a></td>
+        <th scope="row">${problem.id}</th>
+        <td>${problem.name}</td>
+        <td>${problem.user.username}</td>
+        <td>${problem.category.name}</td>
+        <td>${problem.content}</td>
+        <td><a href="${deleteLink}">Delete</a> </td>
     </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Integers in Java</td>
-        <td>Using integers in Java</td>
-        <td>Java</td>
-        <td>7</td>
-        <td><a href="#">Delete</a></td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>First String in Java</td>
-        <td>Get String input and output</td>
-        <td>Java</td>
-        <td>10</td>
-        <td><a href="#">Delete</a></td>
-    </tr>
+        </c:forEach>
+    </form:form>
 
     </tbody>
 </table>
