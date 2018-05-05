@@ -5,35 +5,37 @@ import os
 
 class SubmitProcessor:
 
-    def get_unprocessed_submits(self):
-        conn = db_connection.get_connection()
-        cur = conn.cursor()
-        query = 'SELECT id, problem_id FROM submit WHERE processed IS NOT TRUE;'
-        cur.execute(query)
-
-        unprocessed_submits = cur.fetchall()
-        conn.commit()
-        conn.close()
-        print('uprocessed submits')
-        print(unprocessed_submits)
-        return unprocessed_submits
-
-    def process_submits(self, unprocessed_submits):
-        for unprocessed_submit in unprocessed_submits:
-            submit_id = unprocessed_submit[0]
-            problem_id = unprocessed_submit[1]
-            os.makedirs(str(submit_id))
-            directory = './' + str(submit_id)
-            self.create_a_file(directory, submit_id)
-            compilation_outcome = self.compile_java(directory)
-            self.save_compilation_outcome_to_database(compilation_outcome, submit_id)
-            compilation_return_code = compilation_outcome[0]
-
-            if compilation_return_code != 0:
-                self.remove_directory_with_source(directory)
-                return
-            self.run_tests_java(directory, problem_id, submit_id)
+    def process_submit(self, submit_id, problem_id):
+        self.wait_for_submit_transaction_commit(submit_id)
+        directory = '/home/addme/IdeaProjects/justlearnit_us0005/src/main/python/' + str(submit_id)
+        if os.path.exists(directory):
             self.remove_directory_with_source(directory)
+        os.makedirs(directory)
+        self.create_a_file(directory, submit_id)
+        compilation_outcome = self.compile_java(directory)
+        self.save_compilation_outcome_to_database(compilation_outcome, submit_id)
+        compilation_return_code = compilation_outcome[0]
+        if compilation_return_code != 0:
+            self.remove_directory_with_source(directory)
+            return
+        self.run_tests_java(directory, problem_id, submit_id)
+        self.remove_directory_with_source(directory)
+        self.set_submit_as_processed_in_database(submit_id)
+
+    def wait_for_submit_transaction_commit(self, submit_id):
+        conn = db_connection.get_connection()
+        conn.autocommit = True
+        cur = conn.cursor()
+        query = 'SELECT id FROM submit WHERE processed IS NOT TRUE AND id = {0:s};'.format(str(submit_id))
+        transaction_committed = False
+        endless_loop_protection = 10000
+        while not transaction_committed and endless_loop_protection > 0:
+            cur.execute(query)
+            result = cur.fetchall()
+            if result is True:
+                transaction_committed = True
+            endless_loop_protection -= 1
+        conn.close()
 
     def create_a_file(self, directory, unprocessed_submit_id):
         file = open(directory + '/Main.java', mode='w+', encoding='utf-8')
@@ -57,27 +59,23 @@ class SubmitProcessor:
     def run_tests_java(self, directory, problem_id, submit_id):
         tests = self.get_tests(problem_id)
         for test in tests:
-            print(test)
             test_id, test_input = test
             process = subprocess.Popen(['java', 'Main'], cwd=directory, encoding='utf-8', stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
             stdout, stderr = process.communicate(input=test_input)
             process.wait()
             process_return_code = process.returncode
             test_outcome = (process_return_code, stdout, stderr)
             self.save_test_outcome_to_submit_results(submit_id, test_id, test_outcome)
-            # return process_return_code, stdout, stderr
 
     def save_compilation_outcome_to_database(self, compilation_outcome, submit_id):
         conn = db_connection.get_connection()
+        conn.autocommit = True
         cur = conn.cursor()
         compilation_return_code, compilation_stdout, compilation_stderr = compilation_outcome
-        query = "UPDATE submit SET compilation_return_code = " + str(
-            compilation_return_code) + ", compilation_stdout = \'" + compilation_stdout + "\', compilation_stderr = \'" + compilation_stderr + "\' WHERE id = " + str(
-            submit_id) + ";"
+        query = "UPDATE submit SET compilation_return_code = {0:s}, compilation_stdout = \'{1:s}\', compilation_stderr = \'{2:s}\' WHERE id = {3:s};".format(
+            str(compilation_return_code), compilation_stdout, compilation_stderr, str(submit_id))
         cur.execute(query)
-        conn.commit()
         conn.close()
 
     def save_test_outcome_to_submit_results(self, submit_id, test_id, test_outcome):
@@ -85,8 +83,8 @@ class SubmitProcessor:
         cur = conn.cursor()
         execution_error_code, execution_stdout, execution_stderr = test_outcome
 
-        query = "INSERT INTO submit_result (submit_id, test_id, execution_return_code, execution_stdout, execution_stderr) VALUES ({0:d}, {1:d}, {2:d}, '{3:s}', '{4:s}')".format(
-            submit_id, test_id, execution_error_code, execution_stdout, execution_stderr)
+        query = "INSERT INTO submit_result (submit_id, test_id, execution_return_code, execution_stdout, execution_stderr) VALUES ({0:s}, {1:s}, {2:s}, '{3:s}', '{4:s}')".format(
+            str(submit_id), str(test_id), str(execution_error_code), execution_stdout, execution_stderr)
         cur.execute(query)
         conn.commit()
         conn.close()
@@ -98,10 +96,18 @@ class SubmitProcessor:
 
     def get_tests(self, problem_id):
         conn = db_connection.get_connection()
+        conn.autocommit = True
         cur = conn.cursor()
         query = 'SELECT id, input FROM test WHERE problem_id = ' + str(problem_id) + ';'
         cur.execute(query)
         tests = cur.fetchall()
-        conn.commit()
         conn.close()
         return tests
+
+    def set_submit_as_processed_in_database(self, submit_id):
+        conn = db_connection.get_connection()
+        conn.autocommit = True
+        cur = conn.cursor()
+        query = 'UPDATE submit SET processed = true WHERE id = {0:s};'.format(str(submit_id))
+        cur.execute(query)
+        conn.close()
