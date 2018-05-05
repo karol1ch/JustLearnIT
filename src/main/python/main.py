@@ -1,20 +1,11 @@
-import subprocess
-import psycopg2
-import sys
 from submit_processor import SubmitProcessor
-
-
+import sys
 
 def main():
-    # for x in sys.path:
-    #    print (x)
     submit_processor = SubmitProcessor()
-
-    unprocessed_submits = submit_processor.get_unprocessed_submits()
-    submit_processor.process_submits(unprocessed_submits)
-
-    # print('uprocessed submits:')
-    # print(unprocessed_submits)
+    submit_id = sys.argv[1]
+    problem_id = sys.argv[2]
+    submit_processor.process_submit(submit_id, problem_id)
 
 
 if __name__ == "__main__":
