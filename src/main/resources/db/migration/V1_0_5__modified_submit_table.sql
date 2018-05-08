@@ -91,8 +91,8 @@ CREATE TABLE python_submit_processor_configuration
   CONSTRAINT only_one_row CHECK (id = 1)
 );
 
-INSERT INTO python_submit_processor_configuration (id, python_path, python_working_directory)
-VALUES (1, '/home/addme/IdeaProjects/justlearnit_us0005/venv/bin/python3.6',
+INSERT INTO python_submit_processor_configuration (python_path, python_working_directory)
+VALUES ('/home/addme/IdeaProjects/justlearnit_us0005/venv/bin/python3.6',
         '/home/addme/IdeaProjects/justlearnit_us0005/src/main/python');
 
 CREATE EXTENSION IF NOT EXISTS plpython3u;
