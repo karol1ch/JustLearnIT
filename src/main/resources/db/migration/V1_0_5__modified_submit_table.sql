@@ -97,14 +97,15 @@ VALUES ('/home/addme/IdeaProjects/justlearnit_us0005/venv/bin/python3.6',
 
 CREATE EXTENSION IF NOT EXISTS plpython3u;
 
-CREATE OR REPLACE FUNCTION run_submit_processor_py(submit_id                integer, problem_id integer,
-                                                   python_path              text, python_working_directory text)
+CREATE OR REPLACE FUNCTION run_submit_processor_py(submit_id   integer, problem_id integer,
+                                                   python_path text, python_working_directory text)
   RETURNS void AS $$
 import subprocess
+from os import path
 
 parameter1 = str(submit_id)
 parameter2 = str(problem_id)
-submit_processor_path = python_working_directory + '/main.py'
+submit_processor_path = path.join(python_working_directory, 'main.py')
 process = subprocess.Popen([python_path, submit_processor_path, parameter1, parameter2, python_working_directory],
                            stdin=None, stdout=None, stderr=None, close_fds=True)
 $$
@@ -114,16 +115,16 @@ LANGUAGE plpython3u;
 CREATE OR REPLACE FUNCTION run_submit_processor_function()
   RETURNS trigger AS $$
 DECLARE
-  python_path              text;
-  python_working_directory text;
+  python_path_var              text;
+  python_working_directory_var text;
 BEGIN
   SELECT
     python_path,
     python_working_directory
-  INTO python_path, python_working_directory
+  INTO python_path_var, python_working_directory_var
   FROM python_submit_processor_configuration
   WHERE id = 1;
-  PERFORM run_submit_processor_py(NEW.id, NEW.problem_id, python_path, python_working_directory);
+  PERFORM run_submit_processor_py(NEW.id, NEW.problem_id, python_path_var, python_working_directory_var);
   RETURN NEW;
 END
 $$
