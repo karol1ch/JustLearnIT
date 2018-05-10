@@ -20,7 +20,7 @@ class SubmitProcessor:
         is_transaction_commited = self.wait_for_submit_transaction_commit(submit_id)
         if not is_transaction_commited:
             return
-        directory = self.working_directory + str(submit_id)
+        directory = os.path.join(self.working_directory, str(submit_id))
         if os.path.exists(directory):
             self.remove_directory_with_source(directory)
         os.makedirs(directory)
