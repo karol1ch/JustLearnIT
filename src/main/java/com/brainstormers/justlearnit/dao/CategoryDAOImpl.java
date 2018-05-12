@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -18,18 +19,18 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 
     @Override
-    public Category getCategoryById(int theId) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Category.class, theId);
-
-    }
-
-    @Override
     public List<Category> getCategoriesList() {
         Session session = sessionFactory.getCurrentSession();
 
         List<Category> result = session.createQuery("from Category ").list();
 
         return result;
+    }
+
+    @Override
+    public Category getCategoryByName(String categoryName) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(Category.class, categoryName);
+
     }
 }

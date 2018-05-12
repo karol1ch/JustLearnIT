@@ -44,13 +44,18 @@
             <c:url var="deleteLink" value="/admin/deleteProblem">
                 <c:param name="problemId" value="${problem.id}"/>
             </c:url>
+            <c:url var="updateLink" value="/admin/updateProblem">
+                <c:param name="problemId" value="${problem.id}"/>
+            </c:url>
     <tr>
         <th scope="row">${problem.id}</th>
         <td>${problem.name}</td>
         <td>${problem.user.username}</td>
         <td>${problem.category.name}</td>
         <td>${problem.content}</td>
-        <td><a href="${deleteLink}">Delete</a> </td>
+        <td><a href="${deleteLink}">Delete | </a>
+            <a href="${updateLink}">Update</a>
+        </td>
     </tr>
         </c:forEach>
     </form:form>

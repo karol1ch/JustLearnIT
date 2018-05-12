@@ -22,14 +22,21 @@ import java.util.Map;
 @RequestMapping("admin")
 public class AdminController {
 
-    @Autowired
+    final
     ProblemService problemService;
 
-    @Autowired
+    final
     UserService userService;
 
-    @Autowired
+    final
     CategoryService categoryService;
+
+    @Autowired
+    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService) {
+        this.problemService = problemService;
+        this.userService = userService;
+        this.categoryService = categoryService;
+    }
 
     @RequestMapping("/dashboard")
     public String dashboard(){
@@ -75,8 +82,13 @@ public class AdminController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
 
+        String categoryName = problem.getCategory().getName();
+
         User user = userService.getUserById(name);
+        Category category = categoryService.getCategoryByName(categoryName);
+
         problem.setUser(user);
+        problem.setCategory(category);
 
         problemService.saveOrUpdate(problem);
         return "redirect:/admin/problems";

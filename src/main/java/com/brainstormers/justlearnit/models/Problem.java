@@ -11,6 +11,10 @@ public class Problem {
     private String content;
     private Category category;
     private User user;
+    private String inputDescription;
+    private String outputDescription;
+    private int numberOfAcceptedSolutions;
+    private String difficulty;
 
     @Id
     @Column(name = "id")
@@ -91,5 +95,41 @@ public class Problem {
                 '}';
     }
 
+    @Column(name = "input_description")
+    public String getInputDescription() {
+        return inputDescription;
+    }
 
+    public void setInputDescription(String inputDescription) {
+        this.inputDescription = inputDescription;
+    }
+
+    @Column(name = "output_description", nullable = false)
+    public String getOutputDescription() {
+        return outputDescription;
+    }
+
+    public void setOutputDescription(String outputDescription) {
+        this.outputDescription = outputDescription;
+    }
+
+
+    @Column(name = "number_of_accepted_solutions", nullable = false)
+    public int getNumberOfAcceptedSolutions() {
+        return numberOfAcceptedSolutions;
+    }
+
+    public void setNumberOfAcceptedSolutions(int numberOfAcceptedSolutions) {
+        this.numberOfAcceptedSolutions = numberOfAcceptedSolutions;
+    }
+
+
+    @Column(name = "difficulty", nullable = false)
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 }

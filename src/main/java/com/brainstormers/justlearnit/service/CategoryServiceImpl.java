@@ -15,13 +15,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryDAO categoryDAO;
 
-    @Override
-    public Category getCategoryById(int theId) {
-        return categoryDAO.getCategoryById(theId);
-    }
+
 
     @Override
     public List<Category> getCategoriesList() {
         return categoryDAO.getCategoriesList();
+    }
+
+    @Override
+    public Category getCategoryByName(String categoryName) {
+        return categoryDAO.getCategoryByName(categoryName);
     }
 }

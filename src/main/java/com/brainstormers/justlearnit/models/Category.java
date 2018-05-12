@@ -8,6 +8,8 @@ import java.util.Objects;
 public class Category {
 
     private String name;
+    private String description;
+
 
     @Id
     @Column(name = "name")
@@ -33,10 +35,21 @@ public class Category {
         return Objects.hash(name);
     }
 
+
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
                 "name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

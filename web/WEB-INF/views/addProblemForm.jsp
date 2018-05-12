@@ -28,6 +28,21 @@
     <form:textarea path="content" rows="10" cols="100"/>
     <br/>
 
+    Input Description:
+    </br>
+    <form:textarea path="inputDescription" rows="10" cols="100"/>
+    </br>
+
+    Output Description:
+    <br>
+    <form:textarea path="outputDescription" rows="10" cols="100"/>
+    <br>
+
+    Difficulty:
+    <br>
+    <form:input path="difficulty"/>
+    <br>
+
     Category:
     <form:select path="category.name">
         <form:options items="${categories}"/>
