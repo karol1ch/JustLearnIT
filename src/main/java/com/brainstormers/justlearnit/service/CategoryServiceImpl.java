@@ -26,4 +26,16 @@ public class CategoryServiceImpl implements CategoryService {
     public Category getCategoryByName(String categoryName) {
         return categoryDAO.getCategoryByName(categoryName);
     }
+
+    @Override
+    public void saveOrUpdate(Category category) {
+        categoryDAO.saveOrUpdate(category);
+    }
+
+    @Override
+    public void delete(Category category) {
+        categoryDAO.delete(category);
+    }
+
+
 }

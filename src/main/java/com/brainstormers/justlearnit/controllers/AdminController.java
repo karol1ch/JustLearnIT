@@ -73,7 +73,6 @@ public class AdminController {
         model.addAttribute("problem", problem);
         model.addAttribute("categories", categoriesNames);
 
-
         return "addProblemForm";
     }
 

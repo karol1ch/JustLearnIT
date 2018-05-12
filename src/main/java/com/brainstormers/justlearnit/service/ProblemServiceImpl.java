@@ -3,6 +3,7 @@ package com.brainstormers.justlearnit.service;
 
 import com.brainstormers.justlearnit.dao.ProblemDAO;
 import com.brainstormers.justlearnit.dao.ProblemDAOImpl;
+import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class ProblemServiceImpl implements ProblemService{
     @Autowired
     ProblemDAO problemDAO;
 
-    @Transactional
+
     public Problem getProblemById(int theId){
       return  problemDAO.getProblemById(theId);
     }
@@ -30,8 +31,15 @@ public class ProblemServiceImpl implements ProblemService{
         problemDAO.deleteProblem(problemId);
     }
 
-    @Override
+
     public void saveOrUpdate(Problem problem) {
         problemDAO.saveOrUpdate(problem);
     }
+
+
+    public List<Problem> getProblemsWhereCategory(Category category) {
+        return problemDAO.getProblemsWhereCategory(category);
+    }
+
+
 }

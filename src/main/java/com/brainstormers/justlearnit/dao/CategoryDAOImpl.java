@@ -33,4 +33,16 @@ public class CategoryDAOImpl implements CategoryDAO {
         return session.get(Category.class, categoryName);
 
     }
+
+    @Override
+    public void saveOrUpdate(Category category) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(category);
+    }
+
+    @Override
+    public void delete(Category category) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(category);
+    }
 }

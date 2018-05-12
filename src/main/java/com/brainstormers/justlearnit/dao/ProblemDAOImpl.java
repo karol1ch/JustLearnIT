@@ -1,14 +1,16 @@
 package com.brainstormers.justlearnit.dao;
 
 
+import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
-import javax.persistence.Query;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -44,5 +46,15 @@ public class ProblemDAOImpl implements ProblemDAO{
     public void saveOrUpdate(Problem problem) {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(problem);
+    }
+
+    @Override
+    public List<Problem> getProblemsWhereCategory(Category category) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Problem p where p.category.name = :categoryName");
+
+        query.setParameter("categoryName", category.getName());
+        List result = query.list();
+        return result;
     }
 }

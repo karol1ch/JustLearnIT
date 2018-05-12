@@ -1,5 +1,6 @@
 package com.brainstormers.justlearnit.dao;
 
+import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ProblemDAO {
     public void deleteProblem(int problemId);
 
     void saveOrUpdate(Problem problem);
+
+    List<Problem> getProblemsWhereCategory(Category category);
 }
