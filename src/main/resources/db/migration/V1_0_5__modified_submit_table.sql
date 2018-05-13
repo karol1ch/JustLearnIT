@@ -138,6 +138,79 @@ CREATE CONSTRAINT TRIGGER run_submit_processor_py
   FOR EACH ROW
 EXECUTE PROCEDURE run_submit_processor_function();
 
+CREATE OR REPLACE FUNCTION get_unprocessed_submit(submit_id integer)
+  RETURNS TABLE(id integer) AS $$
+BEGIN
+  RETURN QUERY SELECT s.id
+               FROM submit s
+               WHERE s.processed IS FALSE AND s.id = submit_id;
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION save_compilation_outcome_to_submit(
+  _compilation_return_code integer,
+  _compilation_stdout      character varying,
+  _compilation_stderr      character varying,
+  _submit_id               integer
+)
+  RETURNS void AS $$
+BEGIN
+  UPDATE submit
+  SET compilation_return_code = _compilation_return_code,
+    compilation_stdout        = _compilation_stdout,
+    compilation_stderr        = _compilation_stderr
+  WHERE id = _submit_id;
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION save_test_outcome_to_submit_result(
+  _submit_id             integer,
+  _test_id               integer,
+  _execution_return_code integer,
+  _execution_stdout      character varying,
+  _execution_stderr      character varying
+)
+  RETURNS void AS $$
+BEGIN
+  INSERT INTO submit_result (submit_id, test_id, execution_return_code, execution_stdout, execution_stderr)
+  VALUES (_submit_id, _test_id, _execution_return_code, _execution_stdout, _execution_stderr);
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION get_test(_problem_id integer)
+  RETURNS TABLE(_id integer, _input character varying) AS $$
+BEGIN
+  RETURN QUERY SELECT
+                 id,
+                 input
+               FROM test
+               WHERE problem_id = _problem_id;
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION set_submit_as_processed(submit_id integer)
+  RETURNS void AS $$
+BEGIN
+  UPDATE submit
+  SET processed = true
+  WHERE id = submit_id;
+END
+$$
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION get_code_content_from_submit(submit_id integer)
+  RETURNS table(_code_content character varying) AS $$
+BEGIN
+  RETURN QUERY SELECT code_content
+               FROM submit
+               WHERE id = submit_id;
+END
+$$
+LANGUAGE 'plpgsql';
 
 INSERT INTO programming_language (name)
 VALUES ('Java'), ('C++');
