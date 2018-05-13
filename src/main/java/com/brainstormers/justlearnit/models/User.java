@@ -55,4 +55,12 @@ public class User {
 
         return Objects.hash(username, password, enabled);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", enabled=" + enabled +
+                '}';
+    }
 }
