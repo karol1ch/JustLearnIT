@@ -28,9 +28,6 @@
                             <p class="mb-1" style="text-align: center">${category.description}</p>
                         </a>
 
-
-
-
                     </c:forEach>
                 </form:form>
             </div>
@@ -39,9 +36,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 
