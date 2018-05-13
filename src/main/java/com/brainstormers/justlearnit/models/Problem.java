@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "problem")
+@Table(name = "problem", schema = "public", catalog = "justlearnit")
 public class Problem {
     private int id;
     private String name;
     private String content;
     private Category category;
-    private User user;
     private String inputDescription;
     private String outputDescription;
     private int numberOfAcceptedSolutions;
     private String difficulty;
+    private User user;
 
     @Id
     @Column(name = "id")
@@ -43,58 +43,11 @@ public class Problem {
         return content;
     }
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "category_name")
-    public Category getCategory() {
-        return category;
-    }
-
-
-    @OneToOne
-    @JoinColumn(name = "author")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public void setContent(String content) {
         this.content = content;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Problem problem = (Problem) o;
-        return id == problem.id &&
-                Objects.equals(name, problem.name) &&
-                Objects.equals(content, problem.content);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, name, content);
-    }
-
-    @Override
-    public String toString() {
-        return "Problem{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", content='" + content + '\'' +
-                ", category=" + category +
-                ", user=" + user +
-                '}';
-    }
-
+    @Basic
     @Column(name = "input_description")
     public String getInputDescription() {
         return inputDescription;
@@ -104,7 +57,8 @@ public class Problem {
         this.inputDescription = inputDescription;
     }
 
-    @Column(name = "output_description", nullable = false)
+    @Basic
+    @Column(name = "output_description")
     public String getOutputDescription() {
         return outputDescription;
     }
@@ -113,8 +67,8 @@ public class Problem {
         this.outputDescription = outputDescription;
     }
 
-
-    @Column(name = "number_of_accepted_solutions", nullable = false)
+    @Basic
+    @Column(name = "number_of_accepted_solutions")
     public int getNumberOfAcceptedSolutions() {
         return numberOfAcceptedSolutions;
     }
@@ -123,13 +77,53 @@ public class Problem {
         this.numberOfAcceptedSolutions = numberOfAcceptedSolutions;
     }
 
-
-    @Column(name = "difficulty", nullable = false)
+    @Basic
+    @Column(name = "difficulty")
     public String getDifficulty() {
         return difficulty;
     }
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Problem that = (Problem) o;
+        return id == that.id &&
+                numberOfAcceptedSolutions == that.numberOfAcceptedSolutions &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(content, that.content) &&
+                Objects.equals(inputDescription, that.inputDescription) &&
+                Objects.equals(outputDescription, that.outputDescription) &&
+                Objects.equals(difficulty, that.difficulty);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name, content, inputDescription, outputDescription, numberOfAcceptedSolutions, difficulty);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "author", referencedColumnName = "username", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User usersByAuthor) {
+        this.user = usersByAuthor;
+    }
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "category_name")
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
