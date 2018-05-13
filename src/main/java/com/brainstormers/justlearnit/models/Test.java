@@ -11,11 +11,11 @@ public class Test {
     private boolean isOpen;
     private String input;
     private String output;
-    //private Collection<SubmitResult> submitResultsById;
     private Problem problemByProblemId;
 
     public Test() {
-        input = output = "Nie widze takiej koniecznosci.";
+        input = "Sample input is not available.";
+        output = "Sample output is not available.";
     }
 
     @Id
@@ -86,15 +86,6 @@ public class Test {
 
         return Objects.hash(id, number, isOpen, input, output);
     }
-
-//    @OneToMany(mappedBy = "testByTestId")
-//    public Collection<SubmitResult> getSubmitResultsById() {
-//        return submitResultsById;
-//    }
-//
-//    public void setSubmitResultsById(Collection<SubmitResult> submitResultsById) {
-//        this.submitResultsById = submitResultsById;
-//    }
 
     @ManyToOne
     @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false)

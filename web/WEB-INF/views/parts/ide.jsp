@@ -34,7 +34,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <form:select id="languageSelect" class="selectpicker form-control" path="programmingLanguageByProgrammingLanguageName.name" style="float: left; margin: 16px; width: 50%" onchange="updateLanguage(this)">
+                        <form:select id="languageSelect" class="selectpicker form-control" path="programmingLanguage.name" style="float: left; margin: 16px; width: 50%" onchange="updateLanguage(this)">
                             <form:option selected="true" disabled="true" value="Choose language" />
                             <form:options items="${languages}"/>
                         </form:select>

@@ -16,7 +16,7 @@ public class Submit {
     private Integer compilationReturnCode;
     private String compilationStdout;
     private String compilationStderr;
-    private ProgrammingLanguage programmingLanguageByProgrammingLanguageName;
+    private ProgrammingLanguage programmingLanguage;
     private User user;
     private Problem problem;
 
@@ -124,12 +124,12 @@ public class Submit {
 
     @ManyToOne
     @JoinColumn(name = "programming_language_name", referencedColumnName = "name", nullable = false)
-    public ProgrammingLanguage getProgrammingLanguageByProgrammingLanguageName() {
-        return programmingLanguageByProgrammingLanguageName;
+    public ProgrammingLanguage getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setProgrammingLanguageByProgrammingLanguageName(ProgrammingLanguage programmingLanguageByProgrammingLanguageName) {
-        this.programmingLanguageByProgrammingLanguageName = programmingLanguageByProgrammingLanguageName;
+    public void setProgrammingLanguage(ProgrammingLanguage programmingLanguage) {
+        this.programmingLanguage = programmingLanguage;
     }
 
     @ManyToOne
