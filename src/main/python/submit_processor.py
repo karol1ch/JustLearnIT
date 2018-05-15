@@ -65,7 +65,8 @@ class SubmitProcessor:
         :param unprocessed_submit_id: integer field from database
         :return: None
         """
-        file = open(directory + '/Main.java', mode='w+', encoding='utf-8')
+        java_file_path = os.path.join(directory, 'Main.java')
+        file = open(java_file_path, mode='w+', encoding='utf-8')
         conn = db_connection.get_connection()
         cur = conn.cursor()
         query = 'SELECT _code_content FROM get_code_content_from_submit(%s);'
@@ -80,7 +81,8 @@ class SubmitProcessor:
         :param directory: Directory to process particular submit in.
         :return: Tuple (return_code, stdout, stderr)
         """
-        process = subprocess.Popen(['javac', directory + '/Main.java'], encoding='utf-8', stdout=subprocess.PIPE,
+        java_file_path = os.path.join(directory, 'Main.java')
+        process = subprocess.Popen(['javac', java_file_path], encoding='utf-8', stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
         process.wait()
         process_return_code = process.returncode
@@ -123,8 +125,10 @@ class SubmitProcessor:
         conn.close()
 
     def remove_directory_with_source(self, directory):
-        os.remove(directory + "/Main.java")
-        os.remove(directory + "/Main.class")
+        java_file_path = os.path.join(directory, "Main.java")
+        class_file_path = os.path.join(directory, "Main.class")
+        os.remove(java_file_path)
+        os.remove(class_file_path)
         os.rmdir(directory)
 
     def get_tests(self, problem_id):
