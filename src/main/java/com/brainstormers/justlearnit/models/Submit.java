@@ -11,7 +11,6 @@ public class Submit {
     private int id;
     private Timestamp receivedTime;
     private boolean processed;
-    private String compilerOutput;
     private String codeContent;
     private Integer compilationReturnCode;
     private String compilationStdout;
@@ -49,16 +48,6 @@ public class Submit {
 
     public void setProcessed(boolean processed) {
         this.processed = processed;
-    }
-
-    @Basic
-    @Column(name = "compiler_output")
-    public String getCompilerOutput() {
-        return compilerOutput;
-    }
-
-    public void setCompilerOutput(String compilerOutput) {
-        this.compilerOutput = compilerOutput;
     }
 
     @Basic
@@ -109,7 +98,6 @@ public class Submit {
         return id == that.id &&
                 processed == that.processed &&
                 Objects.equals(receivedTime, that.receivedTime) &&
-                Objects.equals(compilerOutput, that.compilerOutput) &&
                 Objects.equals(codeContent, that.codeContent) &&
                 Objects.equals(compilationReturnCode, that.compilationReturnCode) &&
                 Objects.equals(compilationStdout, that.compilationStdout) &&
@@ -119,7 +107,7 @@ public class Submit {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, receivedTime, processed, compilerOutput, codeContent, compilationReturnCode, compilationStdout, compilationStderr);
+        return Objects.hash(id, receivedTime, processed, codeContent, compilationReturnCode, compilationStdout, compilationStderr);
     }
 
     @ManyToOne
