@@ -2,13 +2,11 @@ package com.brainstormers.justlearnit.service;
 
 
 import com.brainstormers.justlearnit.dao.ProblemDAO;
-import com.brainstormers.justlearnit.dao.ProblemDAOImpl;
 import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service

@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public Category getCategoryByName(String categoryName) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(Category.class, categoryName);
 
+        return session.get(Category.class, categoryName);
     }
 
     @Override
@@ -45,4 +44,6 @@ public class CategoryDAOImpl implements CategoryDAO {
         Session session = sessionFactory.getCurrentSession();
         session.delete(category);
     }
+
+
 }

@@ -21,7 +21,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">Categories</a>
+            <a class="nav-link" href="/categories">Categories</a>
         </li>
 
 
