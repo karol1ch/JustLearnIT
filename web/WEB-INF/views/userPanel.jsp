@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
 
 <jsp:include page="./parts/userMenu.jsp"/>
 
+
 <div class="container">
     <div class="row my-2">
         <div class="col-lg-4 order-lg-1 text-center">
@@ -23,178 +25,64 @@
         <div class="col-lg-8 order-lg-2 ">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                    <a href="/userPanel" class="nav-link active">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit Data</a>
+                    <a href="/editData" class="nav-link">Edit Data</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#changeLogin" data-toggle="tab" class="nav-link">Edit Login</a>
+                    <a href="/editLogin" class="nav-link">Edit Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#changePassword" data-toggle="tab" class="nav-link">Edit Password</a>
+                    <a href="/editPassword" class="nav-link">Edit Password</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#changeAvatar" data-toggle="tab" class="nav-link">Edit Avatar</a>
+                    <a href="/editAvatar" class="nav-link">Edit Avatar</a>
                 </li>
             </ul>
             <div class="tab-content py-4">
 
 
-                <div class="tab-pane active" id="profile">
+                <div class="tab-pane active">
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
                         <div class="col-md-9">
 
                             <div class=" col-md-9 col-lg-9 ">
-                                <table class="table table-user-information">
-                                    <tbody>
-                                    <tr>
-                                        <td>Login:</td>
-                                        <td>${username}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>First Name:</td>
-                                        <td>${firstName}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Last Name:</td>
-                                        <td>${lastName}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email:</td>
-                                        <td>${email}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gender:</td>
-                                        <td>${gender}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Country:</td>
-                                        <td>${country}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Member For:</td>
-                                        <td>${howLong}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
+                                <form:form modelAttribute="userDetail">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <td>Login:</td>
+                                            <td>${userDetail.username}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>First Name:</td>
+                                            <td>${userDetail.firstName}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last Name:</td>
+                                            <td>${userDetail.lastName}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+                                            <td>${userDetail.email}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Country:</td>
+                                            <td>${userDetail.country}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Member For:</td>
+                                            <td>${howLong}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form:form>
                             </div>
 
                         </div>
                     </div>
-                </div>
-
-
-                <div class="tab-pane" id="edit">
-                    <form role="form">
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text"  name="firstName" >
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text"  name="lastName">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email"  name="email">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Country</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text"  name="country">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Gender</label>
-                            <div class="col-lg-9">
-                                <select class="form-control" size="0" name="gender">
-                                    <option selected>Choose...</option>
-                                    <option value="1"> Female</option>
-                                    <option value="2"> Male</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="submit" class="btn btn-primary" value="Save Changes">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-                <div class="tab-pane" id="changeLogin">
-                    <form role="form">
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Login</label>
-                            <div class="col-lg-9">
-                                <input type="text" class="form-control" name="username">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="submit" class="btn btn-primary" value="Save Changes">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-                <div class="tab-pane" id="changePassword">
-
-                    <form role="form">
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" name="password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" name="password">
-                                <small id="passwordHelpInline" class="text-muted">
-                                    Must be 8-20 characters long.
-                                </small>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="submit" class="btn btn-primary" value="Save Changes">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-                <div class="tab-pane" id="changeAvatar">
-                    <div class="col-lg-6 order-lg-1 text-center">
-                        <label class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose </label>
-                        </label>
-                    </div>
-
                 </div>
             </div>
         </div>
