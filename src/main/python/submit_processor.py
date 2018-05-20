@@ -1,7 +1,9 @@
 import db_connection
 import subprocess
 import os
+import sys
 from time import sleep
+import time
 
 
 class SubmitProcessor:
@@ -82,13 +84,21 @@ class SubmitProcessor:
         :return: Tuple (return_code, stdout, stderr)
         """
         java_file_path = os.path.join(directory, 'Main.java')
+        if sys.platform == 'win32':
+            time_now = time.clock
+        else:
+            time_now = time.time
+        t0 = time_now()
         process = subprocess.Popen(['javac', java_file_path], encoding='utf-8', stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
+        t1 = time_now()
+        compilation_time = t1 - t0
+        compilation_time_ms = int(round(compilation_time * 1000))
         process.wait()
         process_return_code = process.returncode
         stdout, stderr = process.communicate()
 
-        return process_return_code, stdout, stderr
+        return process_return_code, stdout, stderr, compilation_time_ms
 
     def run_tests_java(self, directory, problem_id, submit_id):
         """
@@ -97,6 +107,7 @@ class SubmitProcessor:
         tests = self.get_tests(problem_id)
         for test in tests:
             test_id, test_input = test
+
             process = subprocess.Popen(['java', 'Main'], cwd=directory, encoding='utf-8', stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = process.communicate(input=test_input)
@@ -109,9 +120,16 @@ class SubmitProcessor:
         conn = db_connection.get_connection()
         conn.autocommit = True
         cur = conn.cursor()
-        compilation_return_code, compilation_stdout, compilation_stderr = compilation_outcome
+        compilation_return_code, compilation_stdout, compilation_stderr, compilation_time_ms = compilation_outcome
         query = 'SELECT save_compilation_outcome_to_submit(%s,%s,%s,%s);'
-        cur.execute(query, (compilation_return_code, compilation_stdout, compilation_stderr, submit_id))
+        query = """UPDATE submit
+                   SET compilation_return_code = %s,
+                       compilation_stdout = %s,
+                       compilation_stderr = %s,
+                       compilation_time_ms = %s
+                   WHERE id = %s;"""
+        cur.execute(query,
+                    (compilation_return_code, compilation_stdout, compilation_stderr, compilation_time_ms, submit_id))
         conn.close()
 
     def save_test_outcome_to_submit_result(self, submit_id, test_id, test_outcome):
