@@ -11,10 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserPageController {
@@ -45,10 +48,12 @@ public class UserPageController {
     }
 
     @RequestMapping(value = "/updateData", method = RequestMethod.POST)
-    public String updateData(@ModelAttribute("userDetail") UserDetail userDetail, ModelMap modelMap){
-
+    public String updateData(@ModelAttribute("userDetail") @Valid UserDetail userDetail, ModelMap modelMap, BindingResult result){
         String email  = userDetail.getEmail();
         UserDetail tempUser = userDetailService.getUserDetailByEmail(email);
+        if(result.hasErrors()){
+            return "editData";
+        }
         if( tempUser == null){
             userDetailService.update(userDetail);
             return "redirect:/userPanel";

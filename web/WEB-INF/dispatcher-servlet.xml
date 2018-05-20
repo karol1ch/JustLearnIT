@@ -22,7 +22,7 @@
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://127.0.0.1:5432/justlearnit"/>
         <property name="username" value="justlearnit"/>
-        <property name="password" value="jlit"/>
+        <property name="password" value="postgres"/>
     </bean>
 
     <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -57,5 +57,11 @@
     <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
         <property name="baselineOnMigrate" value="true" />
         <property name="dataSource" ref="myDataSource" />
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>messages</value>
+        </property>
     </bean>
 </beans>

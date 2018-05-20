@@ -72,6 +72,9 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                 <div class="col-lg-9">
                                     <form:input path="email" class="form-control"/>
+                                    <div class="has-error">
+                                        <form:errors path="email" class="help-inline"/>
+                                    </div>
                                 </div>
                             </div>
 

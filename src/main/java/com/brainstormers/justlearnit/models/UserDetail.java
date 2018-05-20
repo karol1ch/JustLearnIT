@@ -1,5 +1,8 @@
 package com.brainstormers.justlearnit.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,9 +12,15 @@ import java.util.Objects;
 public class UserDetail {
 
     private String firstName;
+
     private String lastName;
+
+    @NotEmpty
+    @Email
     private String email;
+
     private String country;
+
     private String username;
 
     @Basic
