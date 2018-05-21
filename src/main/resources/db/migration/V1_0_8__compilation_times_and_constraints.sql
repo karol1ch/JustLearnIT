@@ -38,3 +38,4 @@ ALTER TABLE submit_result
 
 
 DROP FUNCTION save_compilation_outcome_to_submit(integer, character varying, character varying, integer);
+DROP FUNCTION save_test_outcome_to_submit_result (integer, integer, integer, character varying, character varying);
