@@ -4,6 +4,7 @@ import com.brainstormers.justlearnit.models.UserDetail;
 
 import java.util.List;
 
+
 public interface UserDetailService {
 
     UserDetail getUserDetail(String username);

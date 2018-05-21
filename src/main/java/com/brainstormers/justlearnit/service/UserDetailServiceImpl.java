@@ -32,5 +32,4 @@ public class UserDetailServiceImpl implements UserDetailService {
         return userDetailDAO.getUserDetailByEmail(email);
     }
 
-
 }

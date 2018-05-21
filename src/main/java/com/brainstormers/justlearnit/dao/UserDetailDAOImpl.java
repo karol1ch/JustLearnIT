@@ -14,7 +14,6 @@ import java.util.List;
 @Transactional
 public class UserDetailDAOImpl implements UserDetailDAO {
 
-
     @Autowired
     SessionFactory sessionFactory;
 

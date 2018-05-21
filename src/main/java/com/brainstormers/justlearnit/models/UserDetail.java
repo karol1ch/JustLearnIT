@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 
@@ -15,8 +16,7 @@ public class UserDetail {
 
     private String lastName;
 
-    @NotEmpty
-    @Email
+    //@Size(max = 20, min = 5, message = "Error, email is too short.")
     private String email;
 
     private String country;
