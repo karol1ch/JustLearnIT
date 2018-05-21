@@ -76,6 +76,7 @@ class SubmitProcessor:
         code_content = cur.fetchall()[0][0]
         conn.close()
         file.write(code_content)
+        file.close()
 
     def compile_java(self, directory):
         """
@@ -116,15 +117,16 @@ class SubmitProcessor:
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             try:
                 stdout, stderr = process.communicate(input=test_input, timeout=maximum_execution_time_sec)
+                process_return_code = process.returncode
             except subprocess.TimeoutExpired:
-                stdout = 'very unprobable sequention'
-                stderr = 'very unprobable sequention'
                 process.kill()
+                stdout = process.stdout.read()
+                stderr = process.stderr.read()
+                process_return_code = -1
+
             t1 = time_now()
             execution_time = t1 - t0
             execution_time_ms = int(round(execution_time * 1000))
-
-            process_return_code = process.returncode
             test_outcome = (process_return_code, stdout, stderr, execution_time_ms)
             self.save_test_outcome_to_submit_result(submit_id, test_id, test_outcome)
 
