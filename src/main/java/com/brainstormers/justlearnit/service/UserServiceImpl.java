@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService {
     public User getUserById(String username) {
         return userDAO.getUserById(username);
     }
+
+    @Override
+    @Transactional
+    public void update(User user) {
+        userDAO.update(user);
+    }
 }
