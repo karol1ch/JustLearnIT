@@ -1,4 +1,4 @@
-package com.brainstormers.justlearnit.controllers;
+package com.brainstormers.justlearnit.controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
