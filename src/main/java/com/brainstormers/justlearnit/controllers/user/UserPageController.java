@@ -1,4 +1,4 @@
-package com.brainstormers.justlearnit.controllers;
+package com.brainstormers.justlearnit.controllers.user;
 
 import com.brainstormers.justlearnit.dao.UserDetailDAO;
 import com.brainstormers.justlearnit.models.User;
