@@ -1,5 +1,5 @@
 ALTER TABLE test
-  ADD COLUMN maximum_execution_time_ms INTEGER NOT NULL DEFAULT 5000;
+  ADD COLUMN maximum_execution_time_ms INTEGER NOT NULL DEFAULT 10000;
 
 
 CREATE TABLE submit_result_status (
@@ -7,7 +7,7 @@ CREATE TABLE submit_result_status (
 );
 
 INSERT INTO submit_result_status (name)
-VALUES ('Passed'), ('Wrong answer'), ('Time limit exceeded'), ('Compilation error'), ('Runtime error');
+VALUES ('Passed'), ('Wrong answer'), ('Time limit exceeded'), ('Runtime error');
 
 ALTER TABLE submit
   ADD COLUMN compilation_time_ms INTEGER;
@@ -24,6 +24,11 @@ BEGIN
                              WHERE t.id = NEW.test_id)
   THEN
     NEW.status := 'Passed';
+  ELSIF NEW.execution_time_ms > (SELECT maximum_execution_time_ms
+                                 FROM test
+                                 where test.id = NEW.test_id)
+    THEN
+      NEW.status := 'Time limit exceeded';
   ELSE
     NEW.status := 'Wrong answer';
   END IF;
@@ -37,5 +42,6 @@ ALTER TABLE submit_result
   DROP COLUMN is_correct;
 
 
-DROP FUNCTION save_compilation_outcome_to_submit(integer, character varying, character varying, integer);
-DROP FUNCTION save_test_outcome_to_submit_result (integer, integer, integer, character varying, character varying);
+DROP FUNCTION save_compilation_outcome_to_submit( integer, character varying, character varying, integer );
+DROP FUNCTION save_test_outcome_to_submit_result ( integer, integer, integer, character varying, character varying );
+DROP FUNCTION get_test(integer);

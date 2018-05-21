@@ -91,13 +91,12 @@ class SubmitProcessor:
         t0 = time_now()
         process = subprocess.Popen(['javac', java_file_path], encoding='utf-8', stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
+        process.wait()
         t1 = time_now()
         compilation_time = t1 - t0
         compilation_time_ms = int(round(compilation_time * 1000))
-        process.wait()
         process_return_code = process.returncode
         stdout, stderr = process.communicate()
-
         return process_return_code, stdout, stderr, compilation_time_ms
 
     def run_tests_java(self, directory, problem_id, submit_id):
@@ -110,16 +109,21 @@ class SubmitProcessor:
         else:
             time_now = time.time
         for test in tests:
-            test_id, test_input = test
-
+            test_id, test_input, maximum_execution_time_ms = test
+            maximum_execution_time_sec = round(maximum_execution_time_ms/1000)
             t0 = time_now()
             process = subprocess.Popen(['java', 'Main'], cwd=directory, encoding='utf-8', stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            try:
+                stdout, stderr = process.communicate(input=test_input, timeout=maximum_execution_time_sec)
+            except subprocess.TimeoutExpired:
+                stdout = 'very unprobable sequention'
+                stderr = 'very unprobable sequention'
+                process.kill()
             t1 = time_now()
             execution_time = t1 - t0
             execution_time_ms = int(round(execution_time * 1000))
-            stdout, stderr = process.communicate(input=test_input)
-            process.wait()
+
             process_return_code = process.returncode
             test_outcome = (process_return_code, stdout, stderr, execution_time_ms)
             self.save_test_outcome_to_submit_result(submit_id, test_id, test_outcome)
@@ -161,7 +165,11 @@ class SubmitProcessor:
         conn = db_connection.get_connection()
         conn.autocommit = True
         cur = conn.cursor()
-        query = 'SELECT _id, _input FROM get_test(%s);'
+        query = """SELECT
+                 id,
+                 input, maximum_execution_time_ms
+               FROM test
+               WHERE problem_id = %s;"""
         cur.execute(query, (problem_id,))
         tests = cur.fetchall()
         conn.close()
