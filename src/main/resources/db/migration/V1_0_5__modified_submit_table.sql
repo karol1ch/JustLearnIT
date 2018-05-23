@@ -92,8 +92,8 @@ CREATE TABLE python_submit_processor_configuration
 );
 
 INSERT INTO python_submit_processor_configuration (python_path, python_working_directory)
-VALUES ('/home/addme/IdeaProjects/justlearnit_us0005/venv/bin/python3.6',
-        '/home/addme/IdeaProjects/justlearnit_us0005/src/main/python');
+VALUES ('/home/addme/venv/bin/python3.6',
+        '/home/addme/IdeaProjects/justlearnit_new/src/main/python');
 
 CREATE EXTENSION IF NOT EXISTS plpython3u;
 
