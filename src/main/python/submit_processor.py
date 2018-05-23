@@ -1,7 +1,9 @@
 import db_connection
 import subprocess
 import os
+import sys
 from time import sleep
+import time
 
 
 class SubmitProcessor:
@@ -74,6 +76,7 @@ class SubmitProcessor:
         code_content = cur.fetchall()[0][0]
         conn.close()
         file.write(code_content)
+        file.close()
 
     def compile_java(self, directory):
         """
@@ -82,46 +85,75 @@ class SubmitProcessor:
         :return: Tuple (return_code, stdout, stderr)
         """
         java_file_path = os.path.join(directory, 'Main.java')
+        if sys.platform == 'win32':
+            time_now = time.clock
+        else:
+            time_now = time.time
+        t0 = time_now()
         process = subprocess.Popen(['javac', java_file_path], encoding='utf-8', stdout=subprocess.PIPE,
                                    stderr=subprocess.PIPE)
         process.wait()
+        t1 = time_now()
+        compilation_time = t1 - t0
+        compilation_time_ms = int(round(compilation_time * 1000))
         process_return_code = process.returncode
         stdout, stderr = process.communicate()
-
-        return process_return_code, stdout, stderr
+        return process_return_code, stdout, stderr, compilation_time_ms
 
     def run_tests_java(self, directory, problem_id, submit_id):
         """
         java must be in PATH environment variable
         """
         tests = self.get_tests(problem_id)
+        if sys.platform == 'win32':
+            time_now = time.clock
+        else:
+            time_now = time.time
         for test in tests:
-            test_id, test_input = test
+            test_id, test_input, maximum_execution_time_ms = test
+            maximum_execution_time_sec = round(maximum_execution_time_ms/1000)
+            t0 = time_now()
             process = subprocess.Popen(['java', 'Main'], cwd=directory, encoding='utf-8', stdin=subprocess.PIPE,
                                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            stdout, stderr = process.communicate(input=test_input)
-            process.wait()
-            process_return_code = process.returncode
-            test_outcome = (process_return_code, stdout, stderr)
+            try:
+                stdout, stderr = process.communicate(input=test_input, timeout=maximum_execution_time_sec)
+                process_return_code = process.returncode
+            except subprocess.TimeoutExpired:
+                process.kill()
+                stdout = process.stdout.read()
+                stderr = process.stderr.read()
+                process_return_code = -1
+
+            t1 = time_now()
+            execution_time = t1 - t0
+            execution_time_ms = int(round(execution_time * 1000))
+            test_outcome = (process_return_code, stdout, stderr, execution_time_ms)
             self.save_test_outcome_to_submit_result(submit_id, test_id, test_outcome)
 
     def save_compilation_outcome_to_submit(self, compilation_outcome, submit_id):
         conn = db_connection.get_connection()
         conn.autocommit = True
         cur = conn.cursor()
-        compilation_return_code, compilation_stdout, compilation_stderr = compilation_outcome
-        query = 'SELECT save_compilation_outcome_to_submit(%s,%s,%s,%s);'
-        cur.execute(query, (compilation_return_code, compilation_stdout, compilation_stderr, submit_id))
+        compilation_return_code, compilation_stdout, compilation_stderr, compilation_time_ms = compilation_outcome
+        query = """UPDATE submit
+                   SET compilation_return_code = %s,
+                       compilation_stdout = %s,
+                       compilation_stderr = %s,
+                       compilation_time_ms = %s
+                   WHERE id = %s;"""
+        cur.execute(query,
+                    (compilation_return_code, compilation_stdout, compilation_stderr, compilation_time_ms, submit_id))
         conn.close()
 
     def save_test_outcome_to_submit_result(self, submit_id, test_id, test_outcome):
         conn = db_connection.get_connection()
         conn.autocommit = True
         cur = conn.cursor()
-        execution_error_code, execution_stdout, execution_stderr = test_outcome
-
-        query = 'SELECT save_test_outcome_to_submit_result(%s, %s, %s, %s, %s);'
-        cur.execute(query, (submit_id, test_id, execution_error_code, execution_stdout, execution_stderr))
+        execution_error_code, execution_stdout, execution_stderr, execution_time_ms = test_outcome
+        query = """INSERT INTO submit_result (submit_id, test_id, execution_return_code, execution_stdout, execution_stderr, execution_time_ms)
+            VALUES (%s, %s, %s, %s, %s, %s);"""
+        cur.execute(query,
+                    (submit_id, test_id, execution_error_code, execution_stdout, execution_stderr, execution_time_ms))
         conn.close()
 
     def remove_directory_with_source(self, directory):
@@ -135,7 +167,11 @@ class SubmitProcessor:
         conn = db_connection.get_connection()
         conn.autocommit = True
         cur = conn.cursor()
-        query = 'SELECT _id, _input FROM get_test(%s);'
+        query = """SELECT
+                 id,
+                 input, maximum_execution_time_ms
+               FROM test
+               WHERE problem_id = %s;"""
         cur.execute(query, (problem_id,))
         tests = cur.fetchall()
         conn.close()
