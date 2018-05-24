@@ -11,6 +11,14 @@ public class User {
     private int enabled;
     private UserDetail userDetailByUsername;
 
+
+    @Transient
+    private String oldPassword;
+
+    @Transient
+    private String confirmPassword;
+
+
     @Id
     @Column(name = "username")
     public String getUsername() {
@@ -73,5 +81,22 @@ public class User {
                 ", enabled=" + enabled +
                 ", userDetailByUsername=" + userDetailByUsername +
                 '}';
+    }
+
+    @Transient
+    public String getOldPassword() {
+        return oldPassword;
+    }
+    @Transient
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+    @Transient
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+    @Transient
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

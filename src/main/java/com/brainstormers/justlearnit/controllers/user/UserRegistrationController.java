@@ -35,6 +35,7 @@ public class UserRegistrationController {
 
     @PostMapping("submitRegistrationForm")
     public String submitRegistrationForm(@ModelAttribute("user") User user){
+        user.setEnabled(1);
         userService.save(user);
         user.getUserDetailByUsername().setUsername(user.getUsername());
         userDetailService.save(user.getUserDetailByUsername());
