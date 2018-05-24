@@ -3,6 +3,7 @@ package com.brainstormers.justlearnit.controllers.user;
 import com.brainstormers.justlearnit.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,8 +20,10 @@ public class UserRegistrationController {
 
 
     @PostMapping("submitRegistrationForm")
-    public String submitRegistrationForm(){
-        return "dashboard";
+    public String submitRegistrationForm(@ModelAttribute("user") User user){
+
+        System.out.println("TENUSER " + user);
+        return "registrationConfirmation";
     }
 
 }
