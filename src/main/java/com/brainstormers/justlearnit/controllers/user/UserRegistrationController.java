@@ -1,6 +1,8 @@
 package com.brainstormers.justlearnit.controllers.user;
 
 import com.brainstormers.justlearnit.models.User;
+import com.brainstormers.justlearnit.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserRegistrationController {
 
+
+    final
+    UserService userService;
+
+    @Autowired
+    public UserRegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("register")
     public String registrationForm(Model model){
@@ -21,9 +31,8 @@ public class UserRegistrationController {
 
     @PostMapping("submitRegistrationForm")
     public String submitRegistrationForm(@ModelAttribute("user") User user){
-
-        System.out.println("TENUSER " + user);
-        return "registrationConfirmation";
+        userService.save(user);
+        return "user/registrationConfirmation";
     }
 
 }

@@ -22,22 +22,23 @@
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username">
-
+                        <%--<input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username">--%>
+                        <form:input path="username" class="form-control" placeholder="username"/>
                     </div>
 
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input id="login-email" type="text" class="form-control" name="username" value="" placeholder="email">
-
+                        <%--<input id="login-email" type="text" class="form-control" name="username" value="" placeholder="email">--%>
+                        <form:input path="userDetailByUsername.email" class="form-control" placeholder="email"/>
                     </div>
 
 
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                        <%--<input id="login-password" type="password" class="form-control" name="password" placeholder="password">--%>
+                        <form:input path="password" type="password" class="form-control" placeholder="password"/>
                     </div>
 
 
