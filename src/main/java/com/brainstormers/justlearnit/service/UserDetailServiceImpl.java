@@ -32,4 +32,9 @@ public class UserDetailServiceImpl implements UserDetailService {
         return userDetailDAO.getUserDetailByEmail(email);
     }
 
+    @Override
+    public void save(UserDetail userDetailByUsername) {
+        userDetailDAO.save(userDetailByUsername);
+    }
+
 }
