@@ -95,7 +95,7 @@ INSERT INTO python_submit_processor_configuration (python_path, python_working_d
 VALUES ('/home/addme/venv/bin/python3.6',
         '/home/addme/IdeaProjects/justlearnit_new/src/main/python');
 
-CREATE EXTENSION IF NOT EXISTS plpython3u;
+CREATE EXTENSION IF NOT EXISTS plpythonu;
 
 CREATE OR REPLACE FUNCTION run_submit_processor_py(submit_id   integer, problem_id integer,
                                                    python_path text, python_working_directory text)
@@ -109,7 +109,7 @@ submit_processor_path = path.join(python_working_directory, 'main.py')
 process = subprocess.Popen([python_path, submit_processor_path, parameter1, parameter2, python_working_directory],
                            stdin=None, stdout=None, stderr=None, close_fds=True)
 $$
-LANGUAGE plpython3u;
+LANGUAGE plpythonu;
 
 
 CREATE OR REPLACE FUNCTION run_submit_processor_function()
