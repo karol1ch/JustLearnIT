@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "public", catalog = "justlearnit")
 public class User {
     private String username;
     private String password;
     private int enabled;
+    private UserDetail userDetailByUsername;
 
     @Id
     @Column(name = "username")
@@ -44,10 +45,10 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User users = (User) o;
-        return enabled == users.enabled &&
-                Objects.equals(username, users.username) &&
-                Objects.equals(password, users.password);
+        User user = (User) o;
+        return enabled == user.enabled &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
@@ -56,11 +57,21 @@ public class User {
         return Objects.hash(username, password, enabled);
     }
 
+    @OneToOne(mappedBy = "usersByUsername")
+    public UserDetail getUserDetailByUsername() {
+        return userDetailByUsername;
+    }
+
+    public void setUserDetailByUsername(UserDetail userDetailByUsername) {
+        this.userDetailByUsername = userDetailByUsername;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", enabled=" + enabled +
+                ", userDetailByUsername=" + userDetailByUsername +
                 '}';
     }
 }
