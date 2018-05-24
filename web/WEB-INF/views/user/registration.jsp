@@ -17,7 +17,7 @@
 
                 <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-                <form:form id="registrationForm" class="form-horizontal" role="form" action="${pageContext.request.contextPath}/submitRegistrationForm" method="POST">
+                <form:form class="form-horizontal" modelAttribute="user" action="${pageContext.request.contextPath}/submitRegistrationForm" method="POST">
 
 
                     <div style="margin-bottom: 25px" class="input-group">
