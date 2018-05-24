@@ -36,4 +36,10 @@ public class UserDetailDAOImpl implements UserDetailDAO {
         return (UserDetail) session.createQuery(hql).uniqueResult();
     }
 
+    @Override
+    public void save(UserDetail userDetailByUsername) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(userDetailByUsername);
+    }
+
 }

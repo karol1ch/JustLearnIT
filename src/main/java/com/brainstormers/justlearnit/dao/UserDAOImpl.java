@@ -1,6 +1,7 @@
 package com.brainstormers.justlearnit.dao;
 
 import com.brainstormers.justlearnit.models.User;
+import com.brainstormers.justlearnit.service.UserDetailService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

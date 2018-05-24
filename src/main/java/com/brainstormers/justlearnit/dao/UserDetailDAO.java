@@ -12,4 +12,5 @@ public interface UserDetailDAO {
     void update(UserDetail userDetail);
     UserDetail getUserDetailByEmail(String email);
 
+    void save(UserDetail userDetailByUsername);
 }
