@@ -31,13 +31,7 @@
                     <a href="/editData" class="nav-link">Edit Data</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/editLogin" class="nav-link">Edit Login</a>
-                </li>
-                <li class="nav-item">
                     <a href="/editPassword" class="nav-link">Edit Password</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/editAvatar" class="nav-link">Edit Avatar</a>
                 </li>
             </ul>
             <div class="tab-content py-4">

@@ -10,6 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
+
 </head>
 
 
@@ -32,13 +39,7 @@
                     <a href="/editData" class="nav-link active">Edit Data</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/editLogin" class="nav-link">Edit Login</a>
-                </li>
-                <li class="nav-item">
                     <a href="/editPassword" class="nav-link">Edit Password</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/editAvatar" class="nav-link">Edit Avatar</a>
                 </li>
             </ul>
 
@@ -47,50 +48,49 @@
                     <form:form action="/updateData" modelAttribute="userDetail" method="POST">
                         <form:hidden path="username" />
 
-
-                            <c:if test="${message != null}">
-                                <div class="alert alert-danger" role="alert">
-                                    ${message}
-                                </div>
-                            </c:if>
-
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                                <div class="col-lg-9">
-                                    <form:input path="firstName" class="form-control"/>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <div class="col-lg-9">
+                                <form:input path="firstName" class="form-control"/>
+                                <form:errors path="firstName" cssClass="error"/>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                                <div class="col-lg-9">
-                                    <form:input path="lastName" class="form-control"/>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                            <div class="col-lg-9">
+                                <form:input path="lastName" class="form-control"/>
+                                <form:errors path="lastName" cssClass="error"/>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                                <div class="col-lg-9">
-                                    <form:input path="email" class="form-control"/>
-                                    <div class="has-error">
-                                        <form:errors path="email" class="help-inline"/>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                            <div class="col-lg-9">
+                                <form:input path="email" class="form-control"/>
+                                <c:if test="${message != null}">
+                                    <div class="error">
+                                            ${message}
                                     </div>
-                                </div>
+                                </c:if>
+                                <form:errors path="email" cssClass="error"/>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Country</label>
-                                <div class="col-lg-9">
-                                    <form:input path="country" class="form-control"/>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Country</label>
+                            <div class="col-lg-9">
+                                <form:input path="country" class="form-control"/>
+                                <form:errors path="country" cssClass="error"/>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="submit" class="btn btn-primary" id="btn-edit" value="Save Changes">
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input type="submit" class="btn btn-primary" id="btn-edit" value="Save Changes">
                             </div>
+                        </div>
                     </form:form>
                 </div>
 
