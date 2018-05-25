@@ -1,27 +1,27 @@
 package com.brainstormers.justlearnit.models;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "user_detail")
+@Table(name = "user_detail", schema = "public", catalog = "justlearnit")
 public class UserDetail {
-
-    private String firstName;
-
-    private String lastName;
-
-    //@Size(max = 20, min = 5, message = "Error, email is too short.")
-    private String email;
-
-    private String country;
-
     private String username;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String country;
+    private User usersByUsername;
+
+    @Id
+    @Column(name = "username")
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Basic
     @Column(name = "first_name")
@@ -63,24 +63,46 @@ public class UserDetail {
         this.country = country;
     }
 
-    @Id
-    @Column(name = "username")
-    public String getUsername() {
-        return username;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDetail that = (UserDetail) o;
+        return Objects.equals(username, that.username) &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(country, that.country);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(username, firstName, lastName, email, country);
+    }
+
+    @OneToOne
+    @JoinColumn(name = "username", referencedColumnName = "username", nullable = false)
+    public User getUsersByUsername() {
+        return usersByUsername;
+    }
+
+    public void setUsersByUsername(User usersByUsername) {
+        this.usersByUsername = usersByUsername;
     }
 
     @Override
     public String toString() {
         return "UserDetail{" +
-                "firstName='" + firstName + '\'' +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
-                ", username='" + username + '\'' +
+                ", usersByUsername=" + usersByUsername +
                 '}';
     }
 }
+
+
+
