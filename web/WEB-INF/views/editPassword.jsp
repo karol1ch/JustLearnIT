@@ -10,6 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 
@@ -32,13 +38,7 @@
                         <a href="/editData" class="nav-link">Edit Data</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/editLogin" class="nav-link">Edit Login</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="/editPassword" class="nav-link active">Edit Password</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/editAvatar" class="nav-link">Edit Avatar</a>
                     </li>
                 </ul>
             </ul>
@@ -46,18 +46,16 @@
 
                 <div class="tab-pane active">
 
-                    <c:if test="${message != null}">
-                        <div class="alert alert-danger" role="alert">
-                                ${message}
-                        </div>
-                    </c:if>
-
                     <form:form action="/updatePassword" modelAttribute="user" method="POST">
                         <form:hidden path="username"/>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Old Password</label>
                             <div class="col-lg-9">
                                 <form:input path="oldPassword" type="password" class="form-control"/>
+                                <form:errors path="oldPassword" cssClass="error"/>
+                                <div class="error">
+                                        ${message2}
+                                </div>
                             </div>
                         </div>
 
@@ -65,6 +63,7 @@
                             <label class="col-lg-3 col-form-label form-control-label">Password</label>
                             <div class="col-lg-9">
                                 <form:input path="password" type="password" class="form-control"/>
+                                <form:errors path="password" cssClass="error"/>
                             </div>
                         </div>
 
@@ -72,6 +71,10 @@
                             <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
                             <div class="col-lg-9">
                                 <form:input path="confirmPassword" type="password" class="form-control"/>
+                                <form:errors path="confirmPassword" cssClass="error"/>
+                                <div class="error">
+                                        ${message1}
+                                </div>
                                 <small id="passwordHelpInline" class="text-muted">
                                     Must be 8-20 characters long.
                                 </small>

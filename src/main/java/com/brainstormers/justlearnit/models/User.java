@@ -1,22 +1,33 @@
 package com.brainstormers.justlearnit.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users", schema = "public", catalog = "justlearnit")
 public class User {
-    private String username;
-    private String password;
-    private int enabled;
-    private UserDetail userDetailByUsername;
 
+
+    private String username;
+
+    @NotEmpty
+    @Size(min = 8, max = 20)
+    private String password;
+
+    private int enabled;
 
     @Transient
+    @NotEmpty
     private String oldPassword;
 
     @Transient
+    @NotEmpty
     private String confirmPassword;
+
+    private UserDetail userDetailByUsername;
 
 
     @Id

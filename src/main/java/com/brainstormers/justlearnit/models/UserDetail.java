@@ -1,16 +1,33 @@
 package com.brainstormers.justlearnit.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user_detail", schema = "public", catalog = "justlearnit")
 public class UserDetail {
-    private String username;
+
+
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
+
+    @Email
+    @NotEmpty
     private String email;
+
+    @NotEmpty
     private String country;
+
+    private String username;
+
+
+
     private User usersByUsername;
 
     @Id
