@@ -19,7 +19,10 @@
 
 </head>
 
+
 <jsp:include page="./parts/userMenu.jsp"/>
+
+
 
 <div class="container">
     <div class="row my-2">
@@ -77,53 +80,7 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Country</label>
                             <div class="col-lg-9">
-                                <form:select  path="country" class="form-control">
-                                    <form:option value="Albania"> Albania </form:option>
-                                    <form:option value="Andorra"> Andorra </form:option>
-                                    <form:option value="Austria"> Austria </form:option>
-                                    <form:option value="Belarus"> Belarus </form:option>
-                                    <form:option value="Bosnia and Herzegovina"> Bosnia and Herzegovina </form:option>
-                                    <form:option value="Bulgaria"> Bulgaria </form:option>
-                                    <form:option value="Croatia"> Croatia </form:option>
-                                    <form:option value="Cyprus"> Cyprus </form:option>
-                                    <form:option value="Czechia"> Czechia </form:option>
-                                    <form:option value="Denmark"> Denmark </form:option>
-                                    <form:option value="Estonia"> Estonia </form:option>
-                                    <form:option value="Finland"> Finland </form:option>
-                                    <form:option value="France"> France </form:option>
-                                    <form:option value="Germany"> Germany </form:option>
-                                    <form:option value="Great Britain"> Great Britain </form:option>
-                                    <form:option value="Greece"> Greece </form:option>
-                                    <form:option value="Hungary"> Hungary </form:option>
-                                    <form:option value="Iceland"> Iceland </form:option>
-                                    <form:option value="Ireland"> Ireland </form:option>
-                                    <form:option value="Italy"> Italy </form:option>
-                                    <form:option value="Latvia"> Latvia </form:option>
-                                    <form:option value="Liechtenstein"> Liechtenstein </form:option>
-                                    <form:option value="Lithuania"> Lithuania </form:option>
-                                    <form:option value="Luxembourg"> Luxembourg </form:option>
-                                    <form:option value="Macedonia"> Macedonia </form:option>
-                                    <form:option value="Malta"> Malta </form:option>
-                                    <form:option value="Moldova"> Moldova </form:option>
-                                    <form:option value="Monaco"> Monaco </form:option>
-                                    <form:option value="Montenegro"> Montenegro </form:option>
-                                    <form:option value="Netherlands"> Netherlands </form:option>
-                                    <form:option value="Norway"> Norway </form:option>
-                                    <form:option value="Poland"> Poland </form:option>
-                                    <form:option value="Portugal"> Portugal </form:option>
-                                    <form:option value="Romania"> Romania </form:option>
-                                    <form:option value="Russia"> Russia </form:option>
-                                    <form:option value="San Marino"> San Marino </form:option>
-                                    <form:option value="Serbia"> Serbia </form:option>
-                                    <form:option value="Slovakia"> Slovakia </form:option>
-                                    <form:option value="Slovenia"> Slovenia </form:option>
-                                    <form:option value="Spain"> Spain </form:option>
-                                    <form:option value="Sweden"> Sweden </form:option>
-                                    <form:option value="Switzerland"> Switzerland </form:option>
-                                    <form:option value="Turkey"> Turkey </form:option>
-                                    <form:option value="Ukraine"> Ukraine </form:option>
-                                    <form:option value="Vatican"> Vatican </form:option>
-                                </form:select>
+                                <form:input path="country" class="form-control"/>
                                 <form:errors path="country" cssClass="error"/>
                             </div>
                         </div>
@@ -141,6 +98,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

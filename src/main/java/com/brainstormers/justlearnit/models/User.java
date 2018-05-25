@@ -9,6 +9,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "users", schema = "public", catalog = "justlearnit")
 public class User {
+
+
     private String username;
 
     @NotEmpty
@@ -26,6 +28,7 @@ public class User {
     private String confirmPassword;
 
     private UserDetail userDetailByUsername;
+
 
     @Id
     @Column(name = "username")

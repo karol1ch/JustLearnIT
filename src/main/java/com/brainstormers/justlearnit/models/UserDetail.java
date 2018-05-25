@@ -10,6 +10,7 @@ import java.util.Objects;
 @Table(name = "user_detail", schema = "public", catalog = "justlearnit")
 public class UserDetail {
 
+
     @NotEmpty
     private String firstName;
 
@@ -24,6 +25,8 @@ public class UserDetail {
     private String country;
 
     private String username;
+
+
 
     private User usersByUsername;
 

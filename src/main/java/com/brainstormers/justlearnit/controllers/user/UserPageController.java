@@ -54,7 +54,7 @@ public class UserPageController {
         }
         String email  = userDetail.getEmail();
         UserDetail tempUser = userDetailService.getUserDetailByEmail(email);
-        if( tempUser == null || tempUser.getUsername().equals(userDetail.getUsername()) ){
+        if( tempUser == null ){
             userDetailService.update(userDetail);
             return "redirect:/userPanel";
         }
@@ -85,12 +85,10 @@ public class UserPageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         User tempUser = userService.getUserById(name);
-
         if( !tempUser.getPassword().equals(user.getOldPassword())){
             modelMap.addAttribute("message2", " Old password is wrong");
             return "editPassword";
         }
-
         tempUser.setEnabled(1);
         tempUser.setPassword(user.getPassword());
         tempUser.setOldPassword(user.getPassword());
