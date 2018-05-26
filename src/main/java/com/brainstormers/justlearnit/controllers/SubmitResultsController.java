@@ -40,8 +40,6 @@ public class SubmitResultsController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
 
-        System.out.println("user: " + name + ", submitID: " + submitID + ";");
-
         Submit submit = null;
 
         try {
@@ -50,26 +48,15 @@ public class SubmitResultsController {
             return "redirect:/invalidPage";
         }
 
-        long testsAmount = testService.getAmountOfTestsByProblemID(submit.getProblem());
+        submitService.waitForSubmitProcessing(submit);
 
-        while (submitResultService.getSubmitResultsAmountBySubmitID(submit.getId()) != testsAmount) {
+        if (submit.getCompilationReturnCode().intValue() != 0) {
+            model.put("submitID", submitID);
+            model.put("compilationError", submit.getCompilationStderr());
+            model.put("userCode", submit.getCodeContent());
+            model.put("language", submit.getProgrammingLanguage().getName());
 
-            submit = submitService.getSubmitByID(submit.getId());
-
-            if (submit.getCompilationReturnCode() != null && submit.getCompilationReturnCode().intValue() != 0) {
-                model.put("submitID", submitID);
-                model.put("compilationError", submit.getCompilationStderr());
-                model.put("userCode", submit.getCodeContent());
-                model.put("language", submit.getProgrammingLanguage().getName());
-
-                return "submitCompilationError";
-            }
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            return "submitCompilationError";
         }
 
         List<SubmitResult> submitResultsList = submitResultService.getSubmitResultsBySubmitID(submitID);

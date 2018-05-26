@@ -10,4 +10,5 @@ public interface SubmitService {
 
     void saveOrUpdate(Submit submit);
 
+    void waitForSubmitProcessing(Submit submit);
 }

@@ -92,25 +92,7 @@ public class SubmitController {
         submit.setUser(userService.getUserById(auth.getName()));
         submit.setReceivedTime(Timestamp.valueOf(LocalDateTime.now()));
         submitService.saveOrUpdate(submit);
-
-        long testsAmount = testService.getAmountOfTestsByProblemID(problem);
-
-        do {
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            submit = submitService.getSubmitByID(submit.getId());
-
-            if (submit.getCompilationReturnCode() != null && submit.getCompilationReturnCode().intValue() != 0) {
-                break;
-            }
-
-        } while (submitResultService.getSubmitResultsAmountBySubmitID(submit.getId()) != testsAmount);
-
+        submitService.waitForSubmitProcessing(submit);
 
         return "redirect:/submitResult/" + submit.getId();
     }
