@@ -12,6 +12,7 @@ public class Test {
     private String input;
     private String output;
     private Problem problemByProblemId;
+    private int maximumExecutionTimeMs;
 
     public Test() {
         input = "Sample input is not available.";
@@ -95,5 +96,15 @@ public class Test {
 
     public void setProblemByProblemId(Problem problemByProblemId) {
         this.problemByProblemId = problemByProblemId;
+    }
+
+    @Basic
+    @Column(name = "maximum_execution_time_ms")
+    public int getMaximumExecutionTimeMs() {
+        return maximumExecutionTimeMs;
+    }
+
+    public void setMaximumExecutionTimeMs(int maximumExecutionTimeMs) {
+        this.maximumExecutionTimeMs = maximumExecutionTimeMs;
     }
 }

@@ -33,4 +33,9 @@ public class TestServiceImpl implements TestService {
     public Test getOpenTestByProblemID(Problem problem) {
         return testDAO.getOpenTestByProblemID(problem);
     }
+
+    @Override
+    public long getAmountOfTestsByProblemID(Problem problem) {
+        return testDAO.getAmountOfTestsByProblemID(problem);
+    }
 }
