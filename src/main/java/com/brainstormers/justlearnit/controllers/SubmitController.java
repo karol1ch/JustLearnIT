@@ -37,26 +37,33 @@ public class SubmitController {
     final
     UserService userService;
 
+    final
+    TestService testService;
+
+    final
+    SubmitResultService submitResultService;
+
     private Problem problem;
 
     @Autowired
     public SubmitController(ProblemService problemService, CategoryService categoryService, SubmitService submitService,
-                            ProgrammingLanguageService programmingLanguageService, UserService userService) {
+                            ProgrammingLanguageService programmingLanguageService, UserService userService, TestService testService, SubmitResultService submitResultService) {
         this.problemService = problemService;
         this.categoryService = categoryService;
         this.submitService = submitService;
         this.programmingLanguageService = programmingLanguageService;
         this.userService = userService;
+        this.testService = testService;
+        this.submitResultService = submitResultService;
     }
 
     @RequestMapping(value = "/{categoryName}/submit/{problemID}", method = RequestMethod.GET)
-    public String loginForm(@PathVariable("categoryName") String categoryName, @PathVariable("problemID") int problemID, ModelMap model){
+    public String loginForm(@PathVariable("categoryName") String categoryName, @PathVariable("problemID") int problemID, ModelMap model) {
 
         Category category = categoryService.getCategoryByName(categoryName);
         problem = problemService.getProblemById(problemID);
 
-        if (category == null || problem == null)
-        {
+        if (category == null || problem == null) {
             return "redirect:/invalidPage";
         }
 
@@ -75,7 +82,7 @@ public class SubmitController {
     }
 
     @RequestMapping(value = "/submitCode", method = RequestMethod.POST)
-    public String userSubmitCode(@ModelAttribute("submit")Submit submit, Model model) {
+    public String userSubmitCode(@ModelAttribute("submit") Submit submit, Model model) {
 
         System.out.println(submit.toString());
 
@@ -86,6 +93,25 @@ public class SubmitController {
         submit.setReceivedTime(Timestamp.valueOf(LocalDateTime.now()));
         submitService.saveOrUpdate(submit);
 
-        return "redirect:/dashboard";
+        long testsAmount = testService.getAmountOfTestsByProblemID(problem);
+
+        do {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            submit = submitService.getSubmitByID(submit.getId());
+
+            if (submit.getCompilationReturnCode() != null && submit.getCompilationReturnCode().intValue() != 0) {
+                break;
+            }
+
+        } while (submitResultService.getSubmitResultsAmountBySubmitID(submit.getId()) != testsAmount);
+
+
+        return "redirect:/submitResult/" + submit.getId();
     }
 }

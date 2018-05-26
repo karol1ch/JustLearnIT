@@ -6,6 +6,8 @@ public interface SubmitService {
 
     Submit getSubmitByID(int id);
 
+    Submit getSubmitByIDAndUsername(int id, String username);
+
     void saveOrUpdate(Submit submit);
 
 }

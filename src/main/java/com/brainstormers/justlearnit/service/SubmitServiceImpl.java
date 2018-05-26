@@ -17,6 +17,11 @@ public class SubmitServiceImpl implements SubmitService {
     }
 
     @Override
+    public Submit getSubmitByIDAndUsername(int id, String username) {
+        return submitDAO.getSubmitByIDAndUsername(id, username);
+    }
+
+    @Override
     public void saveOrUpdate(Submit submit) {
         submitDAO.saveOrUpdate(submit);
     }

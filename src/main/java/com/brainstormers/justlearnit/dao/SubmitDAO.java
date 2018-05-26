@@ -6,6 +6,7 @@ public interface SubmitDAO {
 
     Submit getSubmitByID(int id);
 
-    void saveOrUpdate(Submit submit);
+    Submit getSubmitByIDAndUsername(int id, String username);
 
+    void saveOrUpdate(Submit submit);
 }

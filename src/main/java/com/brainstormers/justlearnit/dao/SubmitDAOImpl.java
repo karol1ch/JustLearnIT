@@ -23,9 +23,25 @@ public class SubmitDAOImpl implements SubmitDAO {
     }
 
     @Override
+    public Submit getSubmitByIDAndUsername(int id, String username) {
+        Session session = sessionFactory.getCurrentSession();
+       // from Problem p where p.category.name = :categoryName"
+        Submit submit = (Submit) session.createQuery(
+                "from Submit s where s.id = :id and s.user.username = :username"
+        )
+                .setParameter("id", id)
+                .setParameter("username", username)
+                .getSingleResult();
+
+        return submit;
+    }
+
+    @Override
     public void saveOrUpdate(Submit submit) {
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(submit);
     }
+
+
 }

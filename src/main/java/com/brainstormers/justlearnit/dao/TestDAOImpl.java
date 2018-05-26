@@ -52,4 +52,15 @@ public class TestDAOImpl implements TestDAO {
         return openTest;
     }
 
+    @Override
+    public long getAmountOfTestsByProblemID(Problem problem) {
+        Session session = sessionFactory.getCurrentSession();
+        long count = (long)session.createQuery(
+                "select count(*) from Test login where problemByProblemId = :problem")
+                .setParameter("problem", problem)
+                .getSingleResult();
+
+        return count;
+    }
+
 }

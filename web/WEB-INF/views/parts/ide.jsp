@@ -68,6 +68,23 @@
 </div>
 
 
+<div class="modal fade" id="pleaseWaitDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Waiting for results...</h1>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="/resources/ace-ide/ace.js"></script>
 <script>
     var editor = ace.edit("editor");
@@ -118,6 +135,11 @@
         {
             document.getElementById('codeContent').value = code;
             document.getElementById("ideForm").submit();
+
+            var pleaseWait = $('#pleaseWaitDialog');
+
+            pleaseWait.modal('show');
+
         }
     }
 </script>

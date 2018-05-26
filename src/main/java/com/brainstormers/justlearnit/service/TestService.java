@@ -15,4 +15,6 @@ public interface TestService {
 
     Test getOpenTestByProblemID(Problem problem);
 
+    long getAmountOfTestsByProblemID(Problem problem);
+
 }
