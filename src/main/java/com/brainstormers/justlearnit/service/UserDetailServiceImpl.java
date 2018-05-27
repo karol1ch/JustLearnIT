@@ -37,4 +37,5 @@ public class UserDetailServiceImpl implements UserDetailService {
         userDetailDAO.save(userDetailByUsername);
     }
 
+
 }

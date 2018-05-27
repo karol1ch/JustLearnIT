@@ -22,8 +22,6 @@
 
 <jsp:include page="./parts/userMenu.jsp"/>
 
-
-
 <div class="container">
     <div class="row my-2">
         <div class="col-lg-4 order-lg-1 text-center">
@@ -98,8 +96,6 @@
         </div>
     </div>
 </div>
-
-
 
 </body>
 </html>
