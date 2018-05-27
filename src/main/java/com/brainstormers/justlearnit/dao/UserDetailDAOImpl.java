@@ -41,4 +41,5 @@ public class UserDetailDAOImpl implements UserDetailDAO {
         Session session = sessionFactory.getCurrentSession();
         session.save(userDetailByUsername);
     }
+
 }

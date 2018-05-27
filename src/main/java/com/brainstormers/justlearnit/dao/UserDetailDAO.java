@@ -14,4 +14,5 @@ public interface UserDetailDAO {
     UserDetail getUserDetailByEmail(String email);
 
     void save(UserDetail userDetailByUsername);
+
 }
