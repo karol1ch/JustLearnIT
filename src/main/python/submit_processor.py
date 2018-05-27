@@ -36,6 +36,7 @@ class SubmitProcessor:
         self.run_tests_java(directory, problem_id, submit_id)
         self.remove_directory_with_source(directory)
         self.set_submit_as_processed_in_database(submit_id)
+        self.increment_problem_number_of_accepted_solutions(problem_id, submit_id)
 
     def wait_for_submit_transaction_commit(self, submit_id):
         """
@@ -183,4 +184,11 @@ class SubmitProcessor:
         cur = conn.cursor()
         query = 'SELECT set_submit_as_processed(%s);'
         cur.execute(query, (submit_id,))
+        conn.close()
+
+    def increment_problem_number_of_accepted_solutions(self, problem_id, submit_id):
+        conn = db_connection.get_connection()
+        conn.autocommit = True
+        cur = conn.cursor()
+        cur.callproc('increment_problem_number_of_accepted_solutions', (problem_id, submit_id))
         conn.close()
