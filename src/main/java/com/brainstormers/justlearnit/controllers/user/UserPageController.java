@@ -98,5 +98,4 @@ public class UserPageController {
         userService.update(tempUser);
         return "redirect:/userPanel";
     }
-
 }

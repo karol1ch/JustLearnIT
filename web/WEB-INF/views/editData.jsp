@@ -19,7 +19,6 @@
 
 </head>
 
-
 <jsp:include page="./parts/userMenu.jsp"/>
 
 <div class="container">
