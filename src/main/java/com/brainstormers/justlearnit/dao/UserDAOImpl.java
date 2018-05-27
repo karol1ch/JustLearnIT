@@ -39,5 +39,6 @@ public class UserDAOImpl implements UserDAO {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
     }
+
 }
 

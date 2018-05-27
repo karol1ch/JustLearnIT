@@ -10,4 +10,5 @@ public interface UserDAO {
     void update(User user);
 
     void save(User user);
+
 }

@@ -14,5 +14,4 @@ public interface UserDetailService {
     UserDetail getUserDetailByEmail(String email);
 
     void save(UserDetail userDetailByUsername);
-
 }
