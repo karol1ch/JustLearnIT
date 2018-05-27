@@ -85,10 +85,12 @@ public class UserPageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         User tempUser = userService.getUserById(name);
+
         if( !tempUser.getPassword().equals(user.getOldPassword())){
             modelMap.addAttribute("message2", " Old password is wrong");
             return "editPassword";
         }
+
         tempUser.setEnabled(1);
         tempUser.setPassword(user.getPassword());
         tempUser.setOldPassword(user.getPassword());
@@ -96,4 +98,5 @@ public class UserPageController {
         userService.update(tempUser);
         return "redirect:/userPanel";
     }
+
 }

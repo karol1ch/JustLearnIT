@@ -10,6 +10,7 @@ public interface UserDetailDAO {
     UserDetail getUserDetail(String username);
 
     void update(UserDetail userDetail);
+
     UserDetail getUserDetailByEmail(String email);
 
     void save(UserDetail userDetailByUsername);
