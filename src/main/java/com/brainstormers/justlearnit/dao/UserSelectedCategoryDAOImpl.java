@@ -1,6 +1,7 @@
 package com.brainstormers.justlearnit.dao;
 
 import com.brainstormers.justlearnit.models.UserSelectedCategory;
+import com.brainstormers.justlearnit.models.UserSelectedCategoryPK;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,19 @@ public class UserSelectedCategoryDAOImpl implements UserSelectedCategoryDAO {
                 .list();
 
         return unfinishedCategories;
+    }
+
+    @Override
+    public UserSelectedCategory getSelectedCategoryByPK(UserSelectedCategoryPK pk) {
+        Session session = sessionFactory.getCurrentSession();
+
+        return session.get(UserSelectedCategory.class, pk);
+    }
+
+    @Override
+    public void saveOrUpdate(UserSelectedCategory userSelectedCategory) {
+        Session session = sessionFactory.getCurrentSession();
+
+        session.saveOrUpdate(userSelectedCategory);
     }
 }

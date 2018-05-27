@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${categoryName} | JustLearnIT</title>
+    <title>Practice Categories | JustLearnIT</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -18,12 +18,12 @@
 <div class="container">
 
     <div class="card border-primary mb-3">
-            <div class="card-header" style="text-align: center; font-size: 24px">Categories</div>
+            <div class="card-header" style="text-align: center; font-size: 24px">Practice Categories</div>
             <div class="card-body">
                 <form:form modelAttribute="categories">
                     <c:forEach items="${categories}" var="category">
 
-                        <a href="/category/${category.name}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin: 16px">
+                        <a href="/practice/category/${category.name}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin: 16px">
                             <h5 style="text-align: center; font-size: 24px">${category.name}</h5>
                             <p class="mb-1" style="text-align: center">${category.description}</p>
                         </a>
@@ -35,6 +35,7 @@
 
         </div>
     </div>
+
 </div>
 
 

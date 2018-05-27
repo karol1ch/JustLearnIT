@@ -1,9 +1,6 @@
 package com.brainstormers.justlearnit.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +8,7 @@ public class Topic {
     private int id;
     private String name;
     private String theory;
+    private Category category;
 
     @Id
     @Column(name = "id")
@@ -56,5 +54,15 @@ public class Topic {
     public int hashCode() {
 
         return Objects.hash(id, name, theory);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "category_name", referencedColumnName = "name", nullable = false)
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

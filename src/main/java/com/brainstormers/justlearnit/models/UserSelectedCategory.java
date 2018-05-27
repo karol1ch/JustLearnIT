@@ -11,6 +11,16 @@ public class UserSelectedCategory {
     private Category category;
     private boolean completed;
 
+    public UserSelectedCategory() {
+
+    }
+
+    public UserSelectedCategory(String username, Category category) {
+        this.username = username;
+        this.category = category;
+        this.completed = false;
+    }
+
     @Id
     @Column(name = "username")
     public String getUsername() {

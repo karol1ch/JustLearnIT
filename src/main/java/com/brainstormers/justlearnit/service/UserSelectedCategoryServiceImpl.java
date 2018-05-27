@@ -2,6 +2,7 @@ package com.brainstormers.justlearnit.service;
 
 import com.brainstormers.justlearnit.dao.UserSelectedCategoryDAO;
 import com.brainstormers.justlearnit.models.UserSelectedCategory;
+import com.brainstormers.justlearnit.models.UserSelectedCategoryPK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,15 @@ public class UserSelectedCategoryServiceImpl implements UserSelectedCategoryServ
     @Override
     public List<UserSelectedCategory> getUserUnfinishedCategoriesByUsername(String username) {
         return userSelectedCategoryDAO.getUserUnfinishedCategoriesByUsername(username);
+    }
+
+    @Override
+    public UserSelectedCategory getSelectedCategoryByPK(UserSelectedCategoryPK pk) {
+        return userSelectedCategoryDAO.getSelectedCategoryByPK(pk);
+    }
+
+    @Override
+    public void saveOrUpdate(UserSelectedCategory userSelectedCategory) {
+        userSelectedCategoryDAO.saveOrUpdate(userSelectedCategory);
     }
 }

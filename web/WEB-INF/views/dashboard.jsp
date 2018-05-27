@@ -30,7 +30,7 @@
                 <form:form modelAttribute="unfinishedCategories">
                     <c:forEach items="${unfinishedCategories}" var="unfinishedCategory">
 
-                        <a href="/category/${unfinishedCategory.category.name}">
+                        <a href="learning/category/${unfinishedCategory.category.name}">
                             <div class="card">
                                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                                 <div class="card-body">
@@ -50,7 +50,7 @@
                 <form:form modelAttribute="completedCategories">
                     <c:forEach items="${completedCategories}" var="completedCategory">
 
-                        <a href="/category/${completedCategory.category.name}">
+                        <a href="learning/category/${completedCategory.category.name}">
                             <div class="card">
                                 <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
                                 <div class="card-body">

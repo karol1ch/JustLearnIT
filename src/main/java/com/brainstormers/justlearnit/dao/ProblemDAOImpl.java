@@ -55,4 +55,15 @@ public class ProblemDAOImpl implements ProblemDAO{
         List result = query.list();
         return result;
     }
+
+    @Override
+    public List<Problem> getPracticeProblemsWhereCategory(Category category) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Problem p where p.category.name = :categoryName and practice = true");
+
+        query.setParameter("categoryName", category.getName());
+        List result = query.list();
+
+        return result;
+    }
 }

@@ -11,6 +11,15 @@ public class UserSelectedCategoryPK implements Serializable {
     private String username;
     private Category category;
 
+    public UserSelectedCategoryPK() {
+
+    }
+
+    public UserSelectedCategoryPK(String username, Category category) {
+        this.username = username;
+        this.category = category;
+    }
+
     @Column(name = "username")
     @Id
     public String getUsername() {

@@ -17,4 +17,6 @@ public interface ProblemService {
     void saveOrUpdate(Problem problem);
 
     List<Problem> getProblemsWhereCategory(Category category);
+
+    List<Problem> getPracticeProblemsWhereCategory(Category category);
 }

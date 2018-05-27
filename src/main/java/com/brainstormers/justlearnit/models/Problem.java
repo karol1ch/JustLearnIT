@@ -15,6 +15,7 @@ public class Problem {
     private int numberOfAcceptedSolutions;
     private String difficulty;
     private User user;
+    private boolean practice;
 
     @Id
     @Column(name = "id")
@@ -98,13 +99,14 @@ public class Problem {
                 Objects.equals(content, that.content) &&
                 Objects.equals(inputDescription, that.inputDescription) &&
                 Objects.equals(outputDescription, that.outputDescription) &&
-                Objects.equals(difficulty, that.difficulty);
+                Objects.equals(difficulty, that.difficulty) &&
+                practice == that.practice;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, content, inputDescription, outputDescription, numberOfAcceptedSolutions, difficulty);
+        return Objects.hash(id, name, content, inputDescription, outputDescription, numberOfAcceptedSolutions, difficulty, practice);
     }
 
     @ManyToOne
@@ -125,5 +127,15 @@ public class Problem {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Basic
+    @Column(name = "practice")
+    public boolean isPractice() {
+        return practice;
+    }
+
+    public void setPractice(boolean practice) {
+        this.practice = practice;
     }
 }

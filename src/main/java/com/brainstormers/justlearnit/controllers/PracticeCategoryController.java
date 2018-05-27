@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-public class CategoryController {
+public class PracticeCategoryController {
 
     final
     ProblemService problemService;
@@ -24,12 +24,12 @@ public class CategoryController {
     CategoryService categoryService;
 
     @Autowired
-    public CategoryController(ProblemService problemService, CategoryService categoryService) {
+    public PracticeCategoryController(ProblemService problemService, CategoryService categoryService) {
         this.problemService = problemService;
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "/category/{categoryName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/practice/category/{categoryName}", method = RequestMethod.GET)
     public String showCategoryPage(@PathVariable String categoryName, ModelMap model){
 
         Category category = categoryService.getCategoryByName(categoryName);
@@ -38,13 +38,12 @@ public class CategoryController {
             return "redirect:/invalidPage";
         }
 
-        List<Problem> problems = problemService.getProblemsWhereCategory(category);
+        List<Problem> problems = problemService.getPracticeProblemsWhereCategory(category);
 
         model.addAttribute("category", category);
         model.addAttribute("problems", problems);
 
-        return "category";
+        return "practiceCategory";
     }
-
 
 }
