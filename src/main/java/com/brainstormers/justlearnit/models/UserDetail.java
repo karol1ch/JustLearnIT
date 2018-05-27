@@ -26,8 +26,6 @@ public class UserDetail {
 
     private String username;
 
-
-
     private User usersByUsername;
 
     @Id
