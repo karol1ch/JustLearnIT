@@ -54,7 +54,7 @@ public class UserPageController {
         }
         String email  = userDetail.getEmail();
         UserDetail tempUser = userDetailService.getUserDetailByEmail(email);
-        if( tempUser == null ){
+        if( tempUser == null || tempUser.getUsername().equals(userDetail.getUsername()) ){
             userDetailService.update(userDetail);
             return "redirect:/userPanel";
         }
