@@ -18,11 +18,9 @@ public class User {
     private int enabled;
 
     @Transient
-    @NotEmpty
     private String oldPassword;
 
     @Transient
-    @NotEmpty
     private String confirmPassword;
 
     private UserDetail userDetailByUsername;

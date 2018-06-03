@@ -10,17 +10,13 @@ import java.util.Objects;
 @Table(name = "user_detail", schema = "public", catalog = "justlearnit")
 public class UserDetail {
 
-    @NotEmpty
     private String firstName;
 
-    @NotEmpty
     private String lastName;
 
     @Email
-    @NotEmpty
     private String email;
 
-    @NotEmpty
     private String country;
 
     private String username;
