@@ -1,11 +1,13 @@
 package com.brainstormers.justlearnit.controllers.user;
 
 import com.brainstormers.justlearnit.models.User;
+import com.brainstormers.justlearnit.models.UserDetail;
 import com.brainstormers.justlearnit.service.UserDetailService;
 import com.brainstormers.justlearnit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,20 +39,25 @@ public class UserRegistrationController {
     }
 
     @PostMapping("submitRegistrationForm")
-    public String submitRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-//no to fajnie, daj potem znać czy pomoglo, elo
-        //problem jest taki że Valid odnosci się do obiektu User(który ma userdetails)
-        //Ale nie walidujemy userDetails, dlatego nie dostajemy błędów, tylko potem ten duży error
-        //dlatego hasło działa (bo jest w userrze, a email z z obiektu detials xd)
-        //hmm, @Valid user.userdetials? nie wiem xD obczaj
+    public String submitRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, ModelMap modelMap){
+
 
         if(bindingResult.hasErrors()){
             return "user/registration";
         }
 
-        String mail = user.getUserDetailByUsername().getEmail();
+        String name = user.getUsername();
+        User tempUser = userService.getUserById(name);
 
-        if(bindingResult.hasFieldErrors(mail)){
+        if(tempUser != null){
+            modelMap.addAttribute("message1", "This username is already in use.");
+            return "user/registration";
+        }
+
+        String mail = user.getUserDetailByUsername().getEmail();
+        UserDetail tempUserDetail = userDetailService.getUserDetailByEmail(mail);
+        if(tempUserDetail != null){
+            modelMap.addAttribute("message2", "This email address is already in use.");
             return "user/registration";
         }
 

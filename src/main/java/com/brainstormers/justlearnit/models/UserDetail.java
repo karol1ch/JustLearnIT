@@ -14,7 +14,6 @@ public class UserDetail {
 
     private String lastName;
 
-    @Email
     private String email;
 
     private String country;
