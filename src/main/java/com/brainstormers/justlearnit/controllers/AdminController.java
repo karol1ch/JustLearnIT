@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +39,13 @@ public class AdminController {
     @RequestMapping("/dashboard")
     public String dashboard(){
         return "adminDashboard";
+    }
+
+    @RequestMapping("/categories")
+    public String categories(Model model){
+        List<Category> categories = categoryService.getCategoriesList();
+        model.addAttribute("categories", categories);
+        return "categoriesAdmin";
     }
 
     @RequestMapping("/problems")
@@ -94,6 +98,25 @@ public class AdminController {
         return "redirect:/admin/problems";
     }
 
+    @RequestMapping(value = "/addCategoryForm", method = RequestMethod.GET)
+    public String addCategoryForm(Model model){
+        model.addAttribute("category", new Category());
+        return "addCategoryForm";
+    }
 
+
+    @GetMapping("/saveCategory")
+    public String saveCategory(@ModelAttribute("category") Category category){
+        categoryService.saveOrUpdate(category);
+        return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/deleteCategory")
+    public String deleteCategory(@RequestParam(name = "categoryName") String categoryName){
+        Category category = categoryService.getCategoryByName(categoryName);
+        categoryService.delete(category);
+
+        return "redirect:/admin/categories";
+    }
 
 }
