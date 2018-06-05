@@ -1,4 +1,4 @@
-package com.brainstormers.justlearnit.controllers.user;
+package com.brainstormers.justlearnit.controllers;
 
 import com.brainstormers.justlearnit.dao.UserDetailDAO;
 import com.brainstormers.justlearnit.models.User;
@@ -48,13 +48,13 @@ public class UserPageController {
     }
 
     @RequestMapping(value = "/updateData", method = RequestMethod.POST)
-    public String updateData(@ModelAttribute("userDetail") @Valid UserDetail userDetail, ModelMap modelMap, BindingResult result){
-        String email  = userDetail.getEmail();
-        UserDetail tempUser = userDetailService.getUserDetailByEmail(email);
+    public String updateData(@ModelAttribute("userDetail") @Valid UserDetail userDetail, BindingResult result, ModelMap modelMap){
         if(result.hasErrors()){
             return "editData";
         }
-        if( tempUser == null){
+        String email  = userDetail.getEmail();
+        UserDetail tempUser = userDetailService.getUserDetailByEmail(email);
+        if( tempUser == null || tempUser.getUsername().equals(userDetail.getUsername()) ){
             userDetailService.update(userDetail);
             return "redirect:/userPanel";
         }
@@ -72,48 +72,30 @@ public class UserPageController {
     }
 
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public String updatePassword(@ModelAttribute("user") User user, ModelMap modelMap){
+    public String updatePassword(@ModelAttribute("user")@Valid User user, BindingResult result, ModelMap modelMap){
 
-        if( user.getOldPassword().equals("") || user.getPassword().equals("") || user.getConfirmPassword().equals("") ){
-            modelMap.addAttribute("message", "Password field cannot be blank");
+        if(result.hasErrors()){
             return "editPassword";
         }
-        else if( !user.getPassword().equals(user.getConfirmPassword())){
-            modelMap.addAttribute("message", "New password and confirm password should be same");
+        if( !user.getPassword().equals(user.getConfirmPassword())){
+            modelMap.addAttribute("message1", "New password and confirm password should be same");
             return  "editPassword";
         }
-        else if( user.getPassword().length() < 8 ){
-            modelMap.addAttribute("message", "New password is too short");
-            return "editPassword";
-        }
-        else if( user.getPassword().length() > 20 ){
-            modelMap.addAttribute("message", "New password is too long");
-            return "editPassword";
-        }
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
         User tempUser = userService.getUserById(name);
+
         if( !tempUser.getPassword().equals(user.getOldPassword())){
-            modelMap.addAttribute("message", " Old password is wrong");
+            modelMap.addAttribute("message2", " Old password is wrong");
             return "editPassword";
         }
+
         tempUser.setEnabled(1);
         tempUser.setPassword(user.getPassword());
+        tempUser.setOldPassword(user.getPassword());
+        tempUser.setConfirmPassword(user.getPassword());
         userService.update(tempUser);
         return "redirect:/userPanel";
     }
-
-
-    @RequestMapping(value = "/editLogin")
-    public String editLogin(){
-        return "editLogin";
-    }
-
-    @RequestMapping(value = "/editAvatar")
-    public String editAvatar(){
-        return "editAvatar";
-    }
-
-
-
 }
