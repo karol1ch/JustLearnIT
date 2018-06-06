@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,19 +21,52 @@
         <h3 class="title">Hi ${username}! How are you?</h3>
     </form:form>
 
-</div>
+    </br></br>
 
-</br></br>
+    <div class="card border-primary mb-3">
+        <div class="card-header" style="text-align: center; font-size: 24px">Recent categories</div>
+        <div class="card-body">
+            <div class="card-columns">
+                <form:form modelAttribute="unfinishedCategories">
+                    <c:forEach items="${unfinishedCategories}" var="unfinishedCategory">
 
-<div class="card">
-    <div class="card-header">
-        Featured
+                        <a href="learning/category/${unfinishedCategory.category.name}">
+                            <div class="card">
+                                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                                <div class="card-body">
+                                    <h5 class="card-title">${unfinishedCategory.category.name}</h5>
+                                    <p class="card-text">${unfinishedCategory.category.description}</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </c:forEach>
+                </form:form>
+            </div>
+        </div>
+        <div class="card-footer" style="text-align: center; font-size: 24px">Completed categories</div>
+        <div class="card-body">
+            <div class="card-columns">
+                <form:form modelAttribute="completedCategories">
+                    <c:forEach items="${completedCategories}" var="completedCategory">
+
+                        <a href="learning/category/${completedCategory.category.name}">
+                            <div class="card">
+                                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                                <div class="card-body">
+                                    <h5 class="card-title">${completedCategory.category.name}</h5>
+                                    <p class="card-text">${completedCategory.category.description}</p>
+                                </div>
+                            </div>
+                        </a>
+
+                    </c:forEach>
+                </form:form>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
+
+
 </div>
 
 

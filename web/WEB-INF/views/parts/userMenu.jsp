@@ -14,14 +14,14 @@
 
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="#">Practice</a>
+            <a class="nav-link" href="/practice/categories">Practice</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Leaderboard</a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/categories">Categories</a>
+            <a class="nav-link" href="/learning/categories">Learning</a>
         </li>
 
 

@@ -35,7 +35,7 @@ public class ProblemController {
     }
 
     @RequestMapping(value = "/{categoryName}/problem/{problemID}", method = RequestMethod.GET)
-    public String showCategoryPage(@PathVariable String categoryName, @PathVariable int problemID, ModelMap model) {
+    public String showProblemPage(@PathVariable String categoryName, @PathVariable int problemID, ModelMap model) {
 
         Category category = categoryService.getCategoryByName(categoryName);
         Problem problem = problemService.getProblemById(problemID);

@@ -39,5 +39,10 @@ public class ProblemServiceImpl implements ProblemService{
         return problemDAO.getProblemsWhereCategory(category);
     }
 
+    @Override
+    public List<Problem> getPracticeProblemsWhereCategory(Category category) {
+        return problemDAO.getPracticeProblemsWhereCategory(category);
+    }
+
 
 }
