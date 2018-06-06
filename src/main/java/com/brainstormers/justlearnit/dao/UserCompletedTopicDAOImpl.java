@@ -45,4 +45,11 @@ public class UserCompletedTopicDAOImpl implements UserCompletedTopicDAO {
 
         return completedTopics;
     }
+
+    @Override
+    public void saveOrUpdate(UserCompletedTopic userCompletedTopic) {
+        Session session = sessionFactory.getCurrentSession();
+
+        session.saveOrUpdate(userCompletedTopic);
+    }
 }

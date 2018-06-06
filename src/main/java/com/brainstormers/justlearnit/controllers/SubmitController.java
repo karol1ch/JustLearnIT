@@ -58,7 +58,7 @@ public class SubmitController {
     }
 
     @RequestMapping(value = "/{categoryName}/submit/{problemID}", method = RequestMethod.GET)
-    public String loginForm(@PathVariable("categoryName") String categoryName, @PathVariable("problemID") int problemID, ModelMap model) {
+    public String getSubmitPage(@PathVariable("categoryName") String categoryName, @PathVariable("problemID") int problemID, ModelMap model) {
 
         Category category = categoryService.getCategoryByName(categoryName);
         problem = problemService.getProblemById(problemID);

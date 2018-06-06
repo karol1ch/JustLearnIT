@@ -11,4 +11,6 @@ public interface UserCompletedTopicService {
 
     List<UserCompletedTopic> getUserCompletedTopicsByCategoryAndUsername(Category category, String username);
 
+    void saveOrUpdate(UserCompletedTopic userCompletedTopic);
+
 }

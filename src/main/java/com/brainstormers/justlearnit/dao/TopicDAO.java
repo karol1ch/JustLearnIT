@@ -12,4 +12,6 @@ public interface TopicDAO {
     List<Topic> getTopicsByCategoryName(String categoryName);
 
     List<Topic> getIncompleteTopicsByCategoryAndUsername(Category category, String username);
+
+    void saveOrUpdate(Topic topic);
 }

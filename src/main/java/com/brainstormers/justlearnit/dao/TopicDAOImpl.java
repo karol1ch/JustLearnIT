@@ -54,4 +54,11 @@ public class TopicDAOImpl implements TopicDAO {
         allTopics.removeAll(completedTopics); // Now there are only incompleted topics
         return allTopics;
     }
+
+    @Override
+    public void saveOrUpdate(Topic topic) {
+        Session session = sessionFactory.getCurrentSession();
+
+        session.saveOrUpdate(topic);
+    }
 }

@@ -11,4 +11,5 @@ public interface UserCompletedTopicDAO {
 
     List<UserCompletedTopic> getUserCompletedTopicsByCategoryAndUsername(Category category, String username);
 
+    void saveOrUpdate(UserCompletedTopic userCompletedTopic);
 }

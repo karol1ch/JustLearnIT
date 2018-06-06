@@ -25,4 +25,9 @@ public class UserCompletedTopicServiceImpl implements UserCompletedTopicService 
     public List<UserCompletedTopic> getUserCompletedTopicsByCategoryAndUsername(Category category, String username) {
         return userCompletedTopicDAO.getUserCompletedTopicsByCategoryAndUsername(category, username);
     }
+
+    @Override
+    public void saveOrUpdate(UserCompletedTopic userCompletedTopic) {
+        userCompletedTopicDAO.saveOrUpdate(userCompletedTopic);
+    }
 }

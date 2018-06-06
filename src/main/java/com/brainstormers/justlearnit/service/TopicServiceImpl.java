@@ -28,4 +28,9 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> getIncompleteTopicsByCategoryAndUsername(Category category, String username) {
         return topicDAO.getIncompleteTopicsByCategoryAndUsername(category, username);
     }
+
+    @Override
+    public void saveOrUpdate(Topic topic) {
+        topicDAO.saveOrUpdate(topic);
+    }
 }

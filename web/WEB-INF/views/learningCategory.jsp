@@ -40,26 +40,18 @@
 
             <h5>Completed Topics:</h5>
             <br>
-            <table class="table table-hover table-light">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th class="float-right" scope="col">Percentage</th>
-                </tr>
-                </thead>
-                <tbody>
-                <form:form modelAttribute="completedTopics">
-                    <c:forEach items="${completedTopics}" var="completedTopic">
-                        <tr class="table-success">
-                            <td>
-                                <a href="/${categoryName}/theory/${completedTopic.topic.id}">${completedTopic.topic.name}</a>
-                            </td>
-                            <td class="float-right">${completedTopic.percentageScore}</td>
-                        </tr>
-                    </c:forEach>
-                </form:form>
-                </tbody>
-            </table>
+
+
+            <form:form modelAttribute="completedTopics">
+                <c:forEach items="${completedTopics}" var="completedTopic">
+
+                    <a href="/${categoryName}/theory/${completedTopic.topic.id}">
+                        <li class="list-group-item list-group-item-success">${completedTopic.topic.name}</li>
+                    </a>
+
+                </c:forEach>
+
+            </form:form>
         </div>
     </div>
 

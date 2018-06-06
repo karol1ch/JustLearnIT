@@ -42,7 +42,7 @@ public class LearningCategoryController {
     }
 
     @RequestMapping(value = "/learning/category/{categoryName}", method = RequestMethod.GET)
-    public String showCategoryV2Page(@PathVariable String categoryName, ModelMap model){
+    public String showCategoryPage(@PathVariable String categoryName, ModelMap model){
 
         Category category = categoryService.getCategoryByName(categoryName);
 
