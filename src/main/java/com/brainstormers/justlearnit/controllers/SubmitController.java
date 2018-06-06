@@ -68,7 +68,7 @@ public class SubmitController {
         }
 
         LinkedList<String> languages = new LinkedList<>();
-        languages.add(categoryName); // This is a temporary solution.
+        languages.add("Java"); // This is a temporary solution.
 
         model.put("problemName", problem.getName());
         model.put("ideTheme", null); // This is a temporary solution.
