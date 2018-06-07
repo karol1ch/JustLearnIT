@@ -119,4 +119,12 @@ public class AdminController {
         return "redirect:/admin/categories";
     }
 
+    @RequestMapping ("/problemDetails/{problemId}")
+    public String problemDetails(@PathVariable int problemId, Model model){
+
+        Problem problem = problemService.getProblemById(problemId);
+        model.addAttribute("problem", problem);
+        return "admin/problemDetails";
+    }
+
 }

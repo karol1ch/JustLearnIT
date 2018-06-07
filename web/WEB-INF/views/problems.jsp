@@ -47,6 +47,10 @@
             <c:url var="updateLink" value="/admin/updateProblem">
                 <c:param name="problemId" value="${problem.id}"/>
             </c:url>
+            <c:url var="detailsLink" value="/admin/problemDetails/${problem.id}">
+                <c:param name="problemId" value="${problem.id}"/>
+            </c:url>
+
     <tr>
         <th scope="row">${problem.id}</th>
         <td>${problem.name}</td>
@@ -55,6 +59,7 @@
         <td>${problem.content}</td>
         <td><a href="${deleteLink}">Delete | </a>
             <a href="${updateLink}">Update</a>
+            <a href="${detailsLink}">Details</a>
         </td>
     </tr>
         </c:forEach>
