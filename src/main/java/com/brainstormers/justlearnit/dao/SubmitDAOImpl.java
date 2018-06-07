@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -41,6 +42,17 @@ public class SubmitDAOImpl implements SubmitDAO {
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(submit);
+    }
+
+    @Override
+    public List<Submit> getSubmitByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
+
+        List<Submit> submits = session.createQuery("from Submit where user.username = :username")
+                .setParameter("username", username)
+                .getResultList();
+
+        return submits;
     }
 
 
