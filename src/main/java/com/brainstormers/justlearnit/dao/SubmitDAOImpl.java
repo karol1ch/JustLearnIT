@@ -48,7 +48,7 @@ public class SubmitDAOImpl implements SubmitDAO {
     public List<Submit> getSubmitByUsername(String username) {
         Session session = sessionFactory.getCurrentSession();
 
-        List<Submit> submits = session.createQuery("from Submit where user.username = :username")
+        List<Submit> submits = session.createQuery("from Submit where user.username = :username order by id desc")
                 .setParameter("username", username)
                 .getResultList();
 

@@ -23,8 +23,8 @@
             <form:form modelAttribute="submits">
                 <c:forEach items="${submits}" var="submit">
 
-                    <a href="/submitResults/${submit.id}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin-bottom: 16px; margin-top: 16px">
-                        <h5 style="text-align: center; font-size: 24px">${submit.id} | ${submit.problem.name}</h5>
+                    <a href="/submitResult/${submit.id}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin-bottom: 16px; margin-top: 16px">
+                        <p style="text-align: center; font-size: 24px">${submit.id} | ${submit.problem.name}</p>
                     </a>
 
                 </c:forEach>
