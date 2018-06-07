@@ -25,7 +25,7 @@
     <div class="row my-2">
         <div class="col-lg-4 order-lg-1 text-center">
             <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-            <h5 class="mt-2">Admin - czerwony / Moderator - zielony  / User - niebieski</h5>
+            <h5 class="mt-2"></h5>
         </div>
         <div class="col-lg-8 order-lg-2 ">
             <ul class="nav nav-tabs">
