@@ -2,9 +2,11 @@ package com.brainstormers.justlearnit.controllers;
 
 import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
+import com.brainstormers.justlearnit.models.Topic;
 import com.brainstormers.justlearnit.models.User;
 import com.brainstormers.justlearnit.service.CategoryService;
 import com.brainstormers.justlearnit.service.ProblemService;
+import com.brainstormers.justlearnit.service.TopicService;
 import com.brainstormers.justlearnit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,11 +31,15 @@ public class AdminController {
     final
     CategoryService categoryService;
 
+    final
+    TopicService topicService;
+
     @Autowired
-    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService) {
+    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService, TopicService topicService) {
         this.problemService = problemService;
         this.userService = userService;
         this.categoryService = categoryService;
+        this.topicService = topicService;
     }
 
     @RequestMapping("/dashboard")
@@ -54,6 +60,22 @@ public class AdminController {
         model.addAttribute("problems", problems);
         return "problems";
     }
+
+    @RequestMapping("/addLesson")
+    public String lessons(Model model){
+
+        List<Category> categories = categoryService.getCategoriesList();
+
+        List<String> categoriesNames = new ArrayList<>();
+        for (Category c: categories){
+            categoriesNames.add(c.getName());
+        }
+
+        model.addAttribute("categories", categoriesNames);
+        model.addAttribute("lesson", new Topic());
+        return "addLesson";
+    }
+
 
     @GetMapping("/deleteProblem")
     public String deleteProblem(@RequestParam(name = "problemId") int problemId){
@@ -96,6 +118,14 @@ public class AdminController {
 
         problemService.saveOrUpdate(problem);
         return "redirect:/admin/problems";
+    }
+
+    @GetMapping("/saveLesson")
+    public String saveLesson(@ModelAttribute Topic topic){
+
+        topicService.saveOrUpdate(topic);
+
+        return "redirect:/admin/addLesson";
     }
 
     @RequestMapping(value = "/addCategoryForm", method = RequestMethod.GET)
