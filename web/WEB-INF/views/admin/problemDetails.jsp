@@ -33,6 +33,8 @@
             <div class="card-footer">
                 <p>Author: <a href="/user/${problem.user.username}">${problem.user.username}</a></p>
             </div>
+
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/problemTests/${problem.id}" role="button">Tests</a>
         </div>
 
 

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -133,11 +134,12 @@ public class AdminController {
         return "admin/problemDetails";
     }
 
-    @RequestMapping("/problemTests/{problemId")
-    public String problemTests(@PathVariable int problemId, Model model){
+    @RequestMapping("/problemTests/{problemId}")
+    public String problemTests(@PathVariable int problemId, ModelMap model){
 
         Problem problem = problemService.getProblemById(problemId);
         List<Test> tests = testService.getTestsByProblemID(problem);
+        model.put("problemName", problem.getName());
         model.addAttribute("tests", tests);
         return "admin/problemTests";
     }
