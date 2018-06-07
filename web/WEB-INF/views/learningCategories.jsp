@@ -23,7 +23,7 @@
             <form:form modelAttribute="categories">
                 <c:forEach items="${categories}" var="category">
 
-                    <a href="/learning/category/${category.name}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin: 16px">
+                    <a href="/learning/category/${category.name}" class="list-group-item list-group-item-action flex-column align-items-start" style="margin-bottom: 16px; margin-top: 16px">
                         <h5 style="text-align: center; font-size: 24px">${category.name}</h5>
                         <p class="mb-1" style="text-align: center">${category.description}</p>
                     </a>
