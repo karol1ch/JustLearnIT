@@ -41,8 +41,7 @@ public class AdminController {
     TopicService topicService;
 
     @Autowired
-    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService, TestService testService) {
-    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService, TopicService topicService) {
+    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService, TestService testService, TopicService topicService) {
         this.problemService = problemService;
         this.userService = userService;
         this.categoryService = categoryService;
