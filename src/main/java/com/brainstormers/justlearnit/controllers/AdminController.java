@@ -2,9 +2,11 @@ package com.brainstormers.justlearnit.controllers;
 
 import com.brainstormers.justlearnit.models.Category;
 import com.brainstormers.justlearnit.models.Problem;
+import com.brainstormers.justlearnit.models.Test;
 import com.brainstormers.justlearnit.models.User;
 import com.brainstormers.justlearnit.service.CategoryService;
 import com.brainstormers.justlearnit.service.ProblemService;
+import com.brainstormers.justlearnit.service.TestService;
 import com.brainstormers.justlearnit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,11 +31,15 @@ public class AdminController {
     final
     CategoryService categoryService;
 
+    final
+    TestService testService;
+
     @Autowired
-    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService) {
+    public AdminController(ProblemService problemService, UserService userService, CategoryService categoryService, TestService testService) {
         this.problemService = problemService;
         this.userService = userService;
         this.categoryService = categoryService;
+        this.testService = testService;
     }
 
     @RequestMapping("/dashboard")
@@ -125,6 +131,15 @@ public class AdminController {
         Problem problem = problemService.getProblemById(problemId);
         model.addAttribute("problem", problem);
         return "admin/problemDetails";
+    }
+
+    @RequestMapping("/problemTests/{problemId")
+    public String problemTests(@PathVariable int problemId, Model model){
+
+        Problem problem = problemService.getProblemById(problemId);
+        List<Test> tests = testService.getTestsByProblemID(problem);
+        model.addAttribute("tests", tests);
+        return "admin/problemTests";
     }
 
 }
