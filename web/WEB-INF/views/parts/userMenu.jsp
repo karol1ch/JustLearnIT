@@ -24,6 +24,10 @@
             <a class="nav-link" href="/learning/categories">Learning</a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="/allSubmits">Submits</a>
+        </li>
+
 
     </ul>
 

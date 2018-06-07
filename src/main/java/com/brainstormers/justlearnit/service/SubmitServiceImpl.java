@@ -7,6 +7,8 @@ import com.brainstormers.justlearnit.models.Submit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubmitServiceImpl implements SubmitService {
 
@@ -27,6 +29,11 @@ public class SubmitServiceImpl implements SubmitService {
     @Override
     public Submit getSubmitByIDAndUsername(int id, String username) {
         return submitDAO.getSubmitByIDAndUsername(id, username);
+    }
+
+    @Override
+    public List<Submit> getSubmitsByUsername(String username) {
+        return submitDAO.getSubmitByUsername(username);
     }
 
     @Override

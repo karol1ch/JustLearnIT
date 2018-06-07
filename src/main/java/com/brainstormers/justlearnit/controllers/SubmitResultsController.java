@@ -69,4 +69,17 @@ public class SubmitResultsController {
         return "submitResult";
     }
 
+    @RequestMapping(value = "/allSubmits", method = RequestMethod.GET)
+    public String showSubmitResultPage(ModelMap model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        List<Submit> submits = submitService.getSubmitsByUsername(username);
+
+        model.put("submits", submits);
+
+        return "AllUserSubmits";
+    }
+
 }
