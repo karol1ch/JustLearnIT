@@ -9,7 +9,7 @@
 
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 
-    <a class="navbar-brand" href="#">JustLearnIT</a>
+    <a class="navbar-brand" href="/">JustLearnIT</a>
 
 
     <ul class="navbar-nav">
