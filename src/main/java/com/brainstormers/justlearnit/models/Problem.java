@@ -15,7 +15,7 @@ public class Problem {
     private int numberOfAcceptedSolutions;
     private String difficulty;
     private User user;
-    private boolean practice;
+    private boolean practice = true;
 
     @Id
     @Column(name = "id")

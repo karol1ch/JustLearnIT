@@ -38,7 +38,8 @@ public class SubmitServiceImpl implements SubmitService {
     public void waitForSubmitProcessing(Submit submit) {
         long testsAmount = testDAO.getAmountOfTestsByProblemID(submit.getProblem());
 
-        while (submitResultDAO.getSubmitResultsAmountBySubmitID(submit.getId()) != testsAmount) {
+        while (submit.getCompilationReturnCode() == null ||
+                submitResultDAO.getSubmitResultsAmountBySubmitID(submit.getId()) != testsAmount) {
             submit = submitDAO.getSubmitByID(submit.getId());
 
             if (submit.getCompilationReturnCode() != null && submit.getCompilationReturnCode().intValue() != 0) {
